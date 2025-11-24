@@ -79,6 +79,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
                     print("Tiempo restante:", int(tiempo_restante))
                 else:
                     incorrectas += 1
+                    print("Tiempo restante:", int(tiempo_restante))
 
                 os.system("pause")
                 os.system("cls")
@@ -116,6 +117,7 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> boo
             os.system("pause")
         if bandera_ronda:
             rondas += 1
+            mostrar_diccionario(estadisticas)
         else:
             completar_nivel = False
             rondas = 3    
