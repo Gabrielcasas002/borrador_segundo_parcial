@@ -2,6 +2,10 @@ from diccionario_juego import *
 import re
 import random
 
+def mostrar_lista(list: list):
+    for i in range(len(list)):
+        print(f"{list[i]}\n")
+
 
 def elegir_letras_csv(diccionario: dict) -> list:
 
@@ -159,6 +163,13 @@ def reconstruir_diccionario(path: str) -> list:
     return lista_final
 
 
+def elegir_nivel(diccionario_niveles: list, numero: int) -> dict:
+
+    for i in range(len(diccionario_niveles)):
+        if diccionario_niveles[i]["nivel"] == numero:
+            return diccionario_niveles[i]
+
+
 def elegir_letras_nivel(nivel: list) -> list:
     """_summary_
 
@@ -196,24 +207,5 @@ def elegir_palabras_nivel(nivel: list, letras: list) -> list:
     return palabras
 
 
-def mostrar_lista(list: list):
-    for i in range(len(list)):
-        print(f"{list[i]}\n")
-
-
-def elegir_nivel(diccionario_niveles: list, numero: int) -> dict:
-
-    for i in range(len(diccionario_niveles)):
-        if diccionario_niveles[i]["nivel"] == numero:
-            return diccionario_niveles[i]
-
-
-
-# crear_csv(diccionario_prueba)
-# listfinal = reconstruir_diccionario("diccionario_juego.csv")
-# mostrar_lista(listfinal)
-# nivell_actual = elegir_nivel(listfinal, 1)
-# lista_letras = elegir_letras_nivel(nivell_actual)
-# lista_palabras = elegir_palabras_nivel(nivell_actual, lista_letras)
 
 

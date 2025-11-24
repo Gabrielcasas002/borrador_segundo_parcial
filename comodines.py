@@ -128,34 +128,6 @@ def revelar_mitad(palabras_ingresadas: list, palabras_asociadas: list):
 
 # 2. 🔗 Ubicar letra: Selecciona una letra aleatoriamente y la ubicará en todas las palabras restantes.
 
-# def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: list) -> list:
-
-#     palabras_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
-
-#     letra = seleccionar_string_aleatoria(lista_letras)
-
-#     lista_ubicar = []
-
-#     for i in range(len(palabras_ocultas)):
-#         palabra_real = lista_palabras[i]
-#         palabra_oculta = palabras_ocultas[i]
-
-#         if palabra_oculta == palabra_real:
-#             lista_ubicar.append(palabra_real)
-
-#         nueva = ""
-
-#         for j in range(len(palabra_real)):
-#             if palabra_real[j] == letra:
-#                 nueva += letra
-#             elif palabra_real[j] != letra:
-#                 nueva += palabra_oculta[j]
-
-#         lista_ubicar.append(nueva)
-
-#     return lista_ubicar
-
-
 def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: list) -> list:
 
     palabras_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
@@ -169,12 +141,13 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
         palabra_oculta = palabras_ocultas[i]
 
         nueva = ""
+        
         j = 0
         while j < len(palabra_real):
 
             if palabra_real[j] == letra:
                 nueva += letra
-            else:
+            elif palabra_real[j] != letra:
                 nueva += palabra_oculta[j]
 
             j += 1
@@ -182,21 +155,6 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
         lista_ubicar.append(nueva)
 
     return lista_ubicar
-
-
-# COMBINAR LISTAS
-
-# def buscar_letra(cadena: str) -> str:
-
-#     mayusculas = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-
-#     for i in range(len(cadena)):
-#         caracter = cadena[i]
-#         for j in range(len(mayusculas)):
-#             if caracter == mayusculas[j]:
-#                 break
-
-#     return caracter
 
 
 def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
@@ -289,5 +247,3 @@ def combinar_listas_ubicar(lista_ubicar, base, lista_palabras):
 # print(lista_revelar)
 # print(lista)
 
-
-# FALTA HACER LAS FUNCIONES DE LOS DEMAS COMODINES.

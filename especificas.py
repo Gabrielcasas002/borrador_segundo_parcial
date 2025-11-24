@@ -293,6 +293,7 @@ def finalizar_partida(puntaje: int, incorrectas: int, tiempo_restante: int, esta
 
     sumar_estadisticas(estadisticas, puntaje, incorrectas, tiempo_restante)
 
+    
 
 def procesar_ingreso(ingreso: str, lista_palabras: list, lista_ingresadas: list) -> int:
     """_summary_
@@ -306,6 +307,7 @@ def procesar_ingreso(ingreso: str, lista_palabras: list, lista_ingresadas: list)
         int: _description_
     """
 
+    print("")
     acierto = jugar_descifrar_palabras(ingreso, lista_palabras, lista_ingresadas)
     puntos = 0
 

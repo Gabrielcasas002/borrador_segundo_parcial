@@ -10,9 +10,9 @@ def mostrar_comodines(estado_comodines):
         print("El comodín Revelar Palabra ya fue usado.")
 
     if estado_comodines[1] == False:
-        print("Ingrese [2] para usar Ubicar Letras")
+        print("Ingrese [2] para usar Ubicar Letras\n")
     else:
-        print("El comodín Ubicar Letras ya fue usado.")
+        print("El comodín Ubicar Letras ya fue usado.\n")
 
 
 def usar_comodines(estado_comodines: dict, ingreso: str):
@@ -27,7 +27,3 @@ def usar_comodines(estado_comodines: dict, ingreso: str):
     else:
         print("Ese comodín ya fue usado.")
     
-
-# lista_combinada = combinar_listas(lista_ubicar, lista_revelar, lista_palabras)
-
-# return lista_combinada

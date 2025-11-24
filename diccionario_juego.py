@@ -16,7 +16,7 @@ diccionario_prueba = [ {"letras" : ["A","C","R","R","O","S"], "palabras" : ["CAR
                 ]
 
 
-# Modificar algunas listas del diccionario_juego para que contengan mas palabras
+# Modificar algunas listas del diccionario_prueba para que contengan mas palabras
 
 diccionario_juego = [
     {
