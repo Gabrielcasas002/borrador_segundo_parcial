@@ -157,78 +157,85 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
     return lista_ubicar
 
 
-def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
+# def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
 
-    lista = list()
+#     lista = list()
 
-    for i in range(len(lista_revelada)):
-        palabra_revelada = lista_revelada[i]
-        palabra_ubicada = lista_ubicar[i]
-        palabra = lista_palabras[i]
+#     for i in range(len(lista_revelada)):
+#         palabra_revelada = lista_revelada[i]
+#         palabra_ubicada = lista_ubicar[i]
+#         palabra = lista_palabras[i]
 
-        palabra_combinada = ""
+#         palabra_combinada = ""
 
-        for j in range(len(palabra)):
-            caracter_ubicar = palabra_ubicada[j]
-            caracter_revelada = palabra_revelada[j]
+#         for j in range(len(palabra)):
+#             caracter_ubicar = palabra_ubicada[j]
+#             caracter_revelada = palabra_revelada[j]
 
-            if caracter_ubicar != "_" and caracter_ubicar == palabra[j]:
-                palabra_combinada += caracter_ubicar
-            elif caracter_revelada != "_" and caracter_revelada == palabra[j]:
-                palabra_combinada += caracter_revelada
-            else:
-                palabra_combinada += "_"
+#             if caracter_ubicar != "_" and caracter_ubicar == palabra[j]:
+#                 palabra_combinada += caracter_ubicar
+#             elif caracter_revelada != "_" and caracter_revelada == palabra[j]:
+#                 palabra_combinada += caracter_revelada
+#             else:
+#                 palabra_combinada += "_"
 
-        lista.append(palabra_combinada)
+#         lista.append(palabra_combinada)
 
-    return lista
+#     return lista
+
+def copiar_lista(lista: list):
+    nueva = []
+    for i in range(len(lista)):
+        nueva.append(lista[i])
+    return nueva
 
 
+def ubicacion_valida(palabra_ubicada, palabra_real):
+    bandera = True
+    
+    if palabra_ubicada == None:
+        bandera = False
 
-# funcion nueva para combinar la lista ubicar con la de palabras.
+    elif len(palabra_ubicada) != len(palabra_real):
+        bandera = False
+    
+    return bandera
+
+
+def combinar_palabra(base_actual, palabra_real, palabra_ubicada):
+    combinada = ""
+    
+    for i in range(len(palabra_real)):
+        if palabra_ubicada[i] != "_":
+            combinada += palabra_ubicada[i]
+        elif palabra_ubicada[i] == "_":
+            combinada += base_actual[i]
+    
+    return combinada
+
 
 def combinar_listas_ubicar(lista_ubicar, base, lista_palabras):
     nueva_lista = []
 
-    # Caso: NO se usó el comodín (lista_ubicar == None)
-    # No puedo usar "is None", así que comparo por igualdad
     if lista_ubicar == None:
-        # devolvemos una copia de base
-        for elem in base:
-            nueva_lista.append(elem)
-        return nueva_lista
+        nueva_lista = copiar_lista(base)
 
-    # Caso: SÍ se usó el comodín
-    for i in range(len(lista_palabras)):
-        palabra_real = lista_palabras[i]
-        base_actual = base[i]
-        palabra_ubicada = lista_ubicar[i]
+    else:
+        for i in range(len(lista_palabras)):
+            palabra_real = lista_palabras[i]
+            base_actual = base[i]
+            palabra_ubicada = lista_ubicar[i]
+            bandera = ubicacion_valida(palabra_ubicada, palabra_real)
 
-        # Si palabra_ubicada no es válida → dejar base_actual
-        longitud_correcta = True
-
-        # chequeo longitud válida sin usar continue
-        if palabra_ubicada == None:
-            longitud_correcta = False
-        else:
-            if len(palabra_ubicada) != len(palabra_real):
-                longitud_correcta = False
-
-        # si no es válida, agrego base_actual
-        if not longitud_correcta:
-            nueva_lista.append(base_actual)
-        else:
-            # combinar letra por letra
-            combinada = ""
-            for j in range(len(palabra_real)):
-                if palabra_ubicada[j] != "_":
-                    combinada += palabra_ubicada[j]
-                else:
-                    combinada += base_actual[j]
-
-            nueva_lista.append(combinada)
+            if bandera == False:
+                nueva_lista.append(base_actual)
+            elif bandera == True:
+                combinada = combinar_palabra(base_actual, palabra_real, palabra_ubicada)
+                nueva_lista.append(combinada)
 
     return nueva_lista
+
+
 
 #--------------------------------------PRUEBAS----------------------------------------------#
 
