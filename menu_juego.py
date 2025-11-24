@@ -11,8 +11,9 @@ def main():
         opcion = input("1. Jugar Decifrar Palabra\n2. Ver Estadisticas\n3. Salir del programa\nElija una opcion: ")
         match opcion :
             case "1":
-                main(diccionario_prueba, diccionario_estadisticas)
+                jugar(diccionario_prueba, diccionario_estadisticas)
             case "2":
+                os.system("cls")
                 print("Estadisticas:\n")
                 mostrar_diccionario(diccionario_estadisticas)
             case "3":
