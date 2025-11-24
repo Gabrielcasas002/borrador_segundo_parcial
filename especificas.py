@@ -89,43 +89,6 @@ def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> li
     return palabras_total
 
 
-# def eliminar_repetidas(lista_palabras: list) -> list:
-#     vistas = []
-#     resultado = []
-
-#     for i in range(len(lista_palabras)):
-#         palabra = lista_palabras[i]
-
-#         repetida = False
-#         for j in range(len(vistas)):
-#             if palabra == vistas[j]:
-#                 repetida = True
-#                 break
-
-#         if repetida == False:
-#             vistas.append(palabra)
-#             resultado.append(palabra)
-
-#     return resultado
-
-
-# def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> list:
-#     palabras_total = []
-
-#     # agregar todas las asociadas
-#     for i in range(len(palabras_asociadas)):
-#         palabras_total.append(palabras_asociadas[i])
-
-#     # agregar todas las descubiertas
-#     for i in range(len(palabras_descubiertas)):
-#         palabras_total.append(palabras_descubiertas[i])
-
-#     # eliminar repetidas
-#     palabras_total = eliminar_repetidas(palabras_total)
-
-#     return palabras_total
-
-
 def estado_nivel(bandera: bool, ronda: int) -> int:
     """_summary_
 
@@ -176,8 +139,6 @@ def mostrar_diccionario(diccionario: dict):
     for clave in diccionario.keys():
        print(f"{clave} : {diccionario[clave]}")
 
-
-# MODIFICAR LA FUNCION limpiar_lista() PARA QUE RECIBA UN NIVEL Y BORRE LAS LISTAS CORRESPONDIENTES DE ESE DICCIONARIO...
 
 def limpiar_lista(diccionario_juego: list, nivel: int, lista_letras: list, lista_palabras: list):
 
@@ -331,11 +292,6 @@ def procesar_ingreso(ingreso: str, lista_palabras: list, lista_ingresadas: list)
 
     return puntos
 
-# Ejemplos de uso
-
-# puntos = procesar_ingreso(ingreso, disponibles, ingresadas)
-# puntaje_total += puntos
-
 
 def calcular_tiempo(tiempo_inicio: float, tiempo_limite: int) -> float:
     """_summary_
@@ -352,8 +308,6 @@ def calcular_tiempo(tiempo_inicio: float, tiempo_limite: int) -> float:
     tiempo_restante = tiempo_limite - transcurrido
 
     return tiempo_restante
-
-# tiempo_restante = calcular_tiempo(tiempo_inicio, tiempo_limite)
 
 
 def mostrar_estado_partida(lista_letras: list, lista_ocultas: list, incorrectas: int, puntaje: int):
@@ -441,3 +395,20 @@ def rebanar(cadena: str, inicio: int, finalizacion: int) -> str:
         cadena_auxiliar += cadena[caracter]
 
     return cadena_auxiliar
+
+def obtener_ingreso(estado_comodines):
+
+    estado_comodin_ubicar = estado_comodines[1]
+
+    if estado_comodin_ubicar:
+        ingreso = input("Ingrese una palabra: ")
+    else:
+        ingreso = input("Ingrese una palabra o [2] para usar Ubicar Letras: ")
+
+    return ingreso
+
+def verificar_ingreso(ingreso: str, palabras_disponibles: list, palabras_ingresadas: list):
+    ingreso_mayuscula = transformar_a_mayusculas(ingreso)
+    puntos = procesar_ingreso(ingreso_mayuscula,palabras_disponibles,palabras_ingresadas)
+
+    return puntos

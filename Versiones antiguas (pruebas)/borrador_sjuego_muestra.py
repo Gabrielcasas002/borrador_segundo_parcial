@@ -3,9 +3,9 @@ from diccionario_juego import *
 from comodines import *
 from funciones_comodines import *
 from borrador_csv import *
-from borrador_acortar_juego import *
 import os
 import time
+
 
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int) -> bool:
 
@@ -37,28 +37,46 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
         if tiempo_restante <= 0:
             print("\nSe terminó el tiempo !!!")
             bandera = False
-        
         else:
 
-            ocultas = actualizar_ocultas(lista_palabras, palabras_ingresadas, lista_ubicar, estado_comodines)
+            if estado_comodines[1] == False:
+                ocultas = ocultar_palabras(lista_palabras, palabras_ingresadas)
+            else:
+                base = ocultar_palabras(lista_palabras, palabras_ingresadas)
+                ocultas = combinar_listas_ubicar(lista_ubicar, base, lista_palabras)
 
             mostrar_estado_partida(lista_letras, ocultas, incorrectas, puntaje_total)
 
-            ingreso = obtener_ingreso(estado_comodines)
+            if estado_comodines[1] == False:
+                ingreso = input("Ingrese una palabra o [2] para usar Ubicar Letras: ")
+            
+            else :
+                ingreso = input("Ingrese una palabra: ")
             
             procesar = True
-            
-            if ingreso == "2":
 
+            if ingreso == "2":
                 procesar = False
-                lista_ubicar = usar_comodin_revelar(estado_comodines, lista_palabras, palabras_ingresadas, lista_letras, lista_ubicar)
+
+                if estado_comodines[1] == False:
+                    lista_ubicar = ubicar_letra(lista_palabras, palabras_ingresadas, lista_letras)
+                    estado_comodines[1] = True
+                    print("\nComodín 'Ubicar letras' aplicado!")
+                else:
+                    print("El comodín Ubicar Letras ya fue usado.")
+
+                os.system("pause")
+                os.system("cls")
 
             if procesar:
 
-                puntos = verificar_ingreso(ingreso, palabras_disponibles, palabras_ingresadas)    
+                ingreso_mayuscula = transformar_a_mayusculas(ingreso)
+                puntos = procesar_ingreso(ingreso_mayuscula,palabras_disponibles,palabras_ingresadas)
+
                 if puntos > 0:
                     puntaje_total += puntos
-                    print("Tiempo restante:", int(tiempo_restante))                
+                    print("Tiempo restante:", int(tiempo_restante))
+                    print(contador)
                 else:
                     incorrectas += 1
                     print("Tiempo restante:", int(tiempo_restante))
