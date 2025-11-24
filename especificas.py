@@ -143,7 +143,7 @@ def estado_nivel(bandera: bool, ronda: int) -> int:
     return ronda
 
 
-def sumar_estadisticas(estadisticas: dict, puntuacion_ronda: int, cantidad_de_ingresos_incorrectos: int, tiempo_restante: int):
+def sumar_estadisticas(estadisticas: dict, puntuacion_ronda: int, cantidad_de_ingresos_incorrectos: int, tiempo_restante: int, contador: int, tiempo_ronda: float):
     """_summary_
 
     Args:
@@ -152,10 +152,18 @@ def sumar_estadisticas(estadisticas: dict, puntuacion_ronda: int, cantidad_de_in
         cantidad_de_ingresos_incorrectos (int): _description_
         tiempo_restante (int): _description_
     """
- 
+    contador += 1
+    tiempo_entre_niveles = 0
+    tiempo_entre_niveles += int(tiempo_ronda)
+
     estadisticas["Puntuacion Total"] += puntuacion_ronda
     estadisticas["Ingresos incorrectos"] += cantidad_de_ingresos_incorrectos
     estadisticas["Tiempo restante total en segundos"] += tiempo_restante
+    estadisticas["Tiempo entre niveles"] += tiempo_entre_niveles
+    
+    promedio_entre_niveles = estadisticas["Tiempo entre niveles"]
+    
+    estadisticas["Tiempo promedio entre niveles"] = promedio_entre_niveles / contador
 
 
 def mostrar_diccionario(diccionario: dict):
@@ -277,7 +285,7 @@ def sumar_puntaje(ingresar: str) -> int:
 #-----------------------NUEVAS-FUNCIONES--------------------------#
 
 
-def finalizar_partida(puntaje: int, incorrectas: int, tiempo_restante: int, estadisticas: dict):
+def finalizar_partida(puntaje: int, incorrectas: int, tiempo_restante: int, estadisticas: dict, contador: int, tiempo_inicio: float):
     """_summary_
 
     Args:
@@ -286,12 +294,13 @@ def finalizar_partida(puntaje: int, incorrectas: int, tiempo_restante: int, esta
         tiempo_restante (int): _description_
         estadisticas (dict): _description_
     """
+    tiempo_total_ronda = time.time() - tiempo_inicio
 
     print("Ganaste La Partida !!!")
     print(f"Puntuación: {puntaje}")
     print(f"Tiempo restante: {tiempo_restante}")
 
-    sumar_estadisticas(estadisticas, puntaje, incorrectas, tiempo_restante)
+    sumar_estadisticas(estadisticas, puntaje, incorrectas, tiempo_restante, contador, tiempo_total_ronda)
 
     
 

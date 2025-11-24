@@ -7,7 +7,7 @@ import os
 import time
 
 
-def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
+def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int) -> bool:
 
     nivell_actual = elegir_nivel(diccionario, nivel)
     lista_letras = elegir_letras_nivel(nivell_actual)
@@ -76,6 +76,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
                 if puntos > 0:
                     puntaje_total += puntos
                     print("Tiempo restante:", int(tiempo_restante))
+                    print(contador)
                 else:
                     incorrectas += 1
                     print("Tiempo restante:", int(tiempo_restante))
@@ -85,7 +86,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
 
             if len(palabras_disponibles) == 0:
                 limpiar_lista(diccionario, nivel, lista_letras, lista_palabras)
-                finalizar_partida(puntaje_total, incorrectas, int(tiempo_restante), estadisticas)
+                finalizar_partida(puntaje_total, incorrectas, int(tiempo_restante), estadisticas, contador, tiempo_inicio)
                 resultado_partida = True
                 bandera = False
 
@@ -93,7 +94,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
 
 
 
-def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> bool:
+def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contador: int) -> bool:
 
     rondas = 0
     completar_nivel = True
@@ -109,7 +110,7 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> boo
 
         mostrar_comodines(estado_comodines)
 
-        bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas)
+        bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas, contador)
 
         if bandera_ronda:
 
@@ -117,6 +118,7 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> boo
 
         if bandera_ronda:
             rondas += 1
+            contador += 1
         else:
             completar_nivel = False
             rondas = 3    
@@ -133,13 +135,14 @@ def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
     limite_reinicios = 3
     bandera = True
     juego_ganado = False
+    contador = 0
 
     crear_csv(diccionario)
     diccionario_juego = reconstruir_diccionario("diccionario_juego.csv")
 
     while nivel <= 5 and bandera:
 
-        nivel_completo = jugar_nivel(diccionario_juego, nivel, estadisticas)
+        nivel_completo = jugar_nivel(diccionario_juego, nivel, estadisticas, contador)
 
 
         if not nivel_completo:
@@ -160,6 +163,7 @@ def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
 
         if bandera and nivel_completo:
             nivel += 1
+            contador += 3
             print(f"\nEstadisticas Juego:\n")
             mostrar_diccionario(estadisticas)
 
