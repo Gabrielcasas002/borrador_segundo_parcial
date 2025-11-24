@@ -1,4 +1,5 @@
-from sprint_1 import *
+from diccionario_juego import *
+from main import *
 import os
 
 def main():
@@ -7,12 +8,13 @@ def main():
     bandera = True
 
     while bandera:
-        opcion = input("1. \n2. \n3. Salir del programa\nElija una opcion: ")
+        opcion = input("1. Jugar Decifrar Palabra\n2. Ver Estadisticas\n3. Salir del programa\nElija una opcion: ")
         match opcion :
             case "1":
-                jugando_descifrar_palabra()
+                main(diccionario_prueba, diccionario_estadisticas)
             case "2":
-                pass
+                print("Estadisticas:\n")
+                mostrar_diccionario(diccionario_estadisticas)
             case "3":
                 print("Saliendo")
                 bandera = False
