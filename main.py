@@ -1,4 +1,4 @@
-from juego_muestra import *
+from borrador_juego_muestra import *
 # from borrador_juego import *
 # from funciones_juego import *
 from diccionario_juego import *
