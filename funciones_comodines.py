@@ -3,13 +3,12 @@ from especificas import *
 
 
 def mostrar_comodines(estado_comodines):
-    # índice 0 = revelar (no se usa pero lo muestro por las reglas del TP)
+
     if estado_comodines[0] == False:
         print("Ingrese [1] para usar Revelar Palabra")
     else:
         print("El comodín Revelar Palabra ya fue usado.")
 
-    # índice 1 = ubicar (este SÍ se usa)
     if estado_comodines[1] == False:
         print("Ingrese [2] para usar Ubicar Letras")
     else:

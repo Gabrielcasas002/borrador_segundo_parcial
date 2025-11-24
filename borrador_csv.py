@@ -77,6 +77,7 @@ def rebanar(cadena: str, inicio: int, finalizacion: int) -> str:
 
     return cadena_auxiliar
 
+
 def crear_csv(diccionario: dict):
     
     diccionario_aux = []
@@ -104,8 +105,6 @@ def crear_csv(diccionario: dict):
                 archivo.write(linea)
 
 
-
-
 def armar_palabras(palabra_actual: str, palabras_str: str):
 
     palabras_lista = []
@@ -122,6 +121,7 @@ def armar_palabras(palabra_actual: str, palabras_str: str):
 
     return palabras_lista
 
+
 def reconstruir_diccionario(path: str) -> list:
 
     lista_final = []
@@ -129,7 +129,7 @@ def reconstruir_diccionario(path: str) -> list:
 
 
     for i in range(5):
-        lista_final.append({"nivel": i + 1,"estado comodines": lista_banderas, "partidas": []})
+        lista_final.append({"nivel": i + 1,"estado_comodines": lista_banderas, "partidas": []})
         
 
     with open(path, "r", encoding="utf8") as archivo:
@@ -157,6 +157,7 @@ def reconstruir_diccionario(path: str) -> list:
             lista_final[nivel - 1]["partidas"].append(partida)
 
     return lista_final
+
 
 def elegir_letras_nivel(nivel: list) -> list:
     """_summary_
@@ -208,7 +209,7 @@ def elegir_nivel(diccionario_niveles: list, numero: int) -> dict:
 
 
 
-# crear_csv(diccionario_juego)
+# crear_csv(diccionario_prueba)
 # listfinal = reconstruir_diccionario("diccionario_juego.csv")
 # mostrar_lista(listfinal)
 # nivell_actual = elegir_nivel(listfinal, 1)

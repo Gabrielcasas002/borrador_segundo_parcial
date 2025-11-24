@@ -2,20 +2,25 @@ from especificas import *
 from diccionario_juego import *
 from comodines import *
 from funciones_comodines import *
+from borrador_csv import *
 import os
 import time
 
 
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
 
-    nivel_diccionario = diccionario[nivel - 1]
-    estado_comodines = nivel_diccionario["estado_comodines"]
+    # nivel_diccionario = diccionario[nivel - 1]
+
+    nivell_actual = elegir_nivel(diccionario, nivel)
+    lista_letras = elegir_letras_nivel(nivell_actual)
+    lista_palabras = elegir_palabras_nivel(nivell_actual, lista_letras)
+    estado_comodines = nivell_actual["estado_comodines"]
 
     estado_comodines[1] = False
     lista_ubicar = None
 
-    lista_letras = elegir_letras_juego(nivel_diccionario)
-    lista_palabras = elegir_palabras_juego(nivel_diccionario, lista_letras)
+    # lista_letras = elegir_letras_juego(nivel_diccionario)
+    # lista_palabras = elegir_palabras_juego(nivel_diccionario, lista_letras)
 
     palabras_ingresadas = []
     palabras_disponibles = copiar_lista(lista_palabras)
@@ -26,7 +31,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
     puntaje_total = 0
 
     tiempo_inicio = time.time()
-    tiempo_limite = 5
+    tiempo_limite = 90
 
     bandera = True
     resultado_partida = False
@@ -92,32 +97,35 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> boo
 
     rondas = 0
     completar_nivel = True
-
     nivel_diccionario = diccionario[nivel_actual - 1]
-
-
 
     while rondas < 3:
 
-        print(f"\nRonda {rondas + 1} / 3")
+        os.system("cls")
+        print(f"\nNivel {nivel_actual}\n")
+        print(f"Ronda {rondas + 1} / 3\n")
 
         estado_comodines = nivel_diccionario["estado_comodines"]
         estado_comodines[1] = False
 
-        mostrar_comodines(nivel_diccionario["estado_comodines"])
+        mostrar_comodines(estado_comodines)
 
         bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas)
 
+        if bandera_ronda:
+            os.system("pause")
         if bandera_ronda:
             rondas += 1
         else:
             completar_nivel = False
             rondas = 3    
 
+    os.system("cls")
+
     return completar_nivel
 
 
-def jugar_juego(diccionario_juego: list[dict], estadisticas: dict) -> bool:
+def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
 
     nivel = 1
     reinicios = 0
@@ -125,9 +133,12 @@ def jugar_juego(diccionario_juego: list[dict], estadisticas: dict) -> bool:
     bandera = True
     juego_ganado = False
 
+    crear_csv(diccionario)
+    diccionario_juego = reconstruir_diccionario("diccionario_juego.csv")
+
     while nivel <= 5 and bandera:
 
-        print(f"\nNivel {nivel}")
+        # print(f"\nNivel {nivel}")
 
         nivel_completo = jugar_nivel(diccionario_juego, nivel, estadisticas)
 

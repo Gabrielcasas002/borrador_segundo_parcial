@@ -16,6 +16,6 @@ def main(diccionario_juego, diccionario_estadisticas):
 
 #---------------------------PRUEBAS---------------------------------#
 
-main(diccionario_juego, diccionario_estadisticas)
+main(diccionario_prueba, diccionario_estadisticas)
 
 # Buscar posibles errores para poder completar el sprint 1

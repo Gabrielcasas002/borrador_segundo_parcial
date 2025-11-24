@@ -157,45 +157,12 @@ def armar_palabras(cadena_palabras: str) -> list:
 
     return lista_palabras
 
-lista = reconstruir_diccionario("diccionario_juego.csv")
-print(lista)
 
-
-
-# MODIFICAR LA FUNCION obtener_colaboradores() para reemplazar la linea 128: registro = re.split(",|\n", linea) para no usar (re.split)
-
-def obtener_colaboradores(titulo: str) -> list:
-    """_summary_
-
-    Args:
-        titulo (str): String recibido por parametro que contiene el nombre de una cancion junto a sus colaboradores.
-
-    Returns:
-        list: La funcion retorna una lista que contiene los nombres de los colaboradores.
-    """
-    lista = []
-    colaboradores = ""
-    for i in range(len(titulo)):
-        if titulo[i] == "-":
-            colaboradores = rebanar(titulo, 0, i - 1)
-            break 
-    
-    colaborador = ""
-
-    for i in range(len(colaboradores)):
-        if colaboradores[i] == "|":
-            espacio = " "
-            lista.append(espacio)
-        if colaboradores[i] != "|":
-            colaborador += colaboradores[i]
-
-    lista.append(colaborador)
-
-    return lista
 
 # Para la funcion reconstruir_diccionario(), modular la funcion y intentar usar la funcion rebanar() para borrar los guiones "-". 
 
 
-# crear_csv(diccionario_prueba)
+crear_csv(diccionario_prueba)
 
-# lista_letras = elegir_letras_csv(dic)
+lista = reconstruir_diccionario("diccionario_juego.csv")
+print(lista)
