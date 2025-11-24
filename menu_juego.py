@@ -1,5 +1,5 @@
 from diccionario_juego import *
-from main import *
+from juego_muestra import *
 import os
 
 def main():

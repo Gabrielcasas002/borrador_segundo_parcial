@@ -7,6 +7,24 @@ import os
 import time
 
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int) -> bool:
+    """_summary_
+
+    Juega una ronda completa del juego, eligiendo las letras, palabras del nivel
+    La funcion: asigna el tiempo de la ronda, el estado y uso de los comodines, controla las palabras ingresadas
+    calcula el puntaje del ingreso, y la cantidad de ingresos incorrectos
+    Finaliza la ronda si es que gano o perdio por tiempo, y actualiza las estadisticas en el diccionario estadisticas.
+
+    Args:
+        diccionario (dict): Diccionario del juego que contiene todas las palabras, niveles, letas, etc del juego
+        nivel (int): Nivel actual a jugar 
+        estadisticas (dict): Diccionario donde se guardan las estadisticas de la partida
+        contador (int): Contador que cuenta cuantas rondas se jugaron 
+
+    Returns:
+        bool: True si la ronda fue completada correctamente
+              False si terminó por tiempo 
+    """
+
 
     nivell_actual = elegir_nivel(diccionario, nivel)
     lista_letras = elegir_letras_nivel(nivell_actual)
@@ -50,7 +68,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
             if ingreso == "2":
 
                 procesar = False
-                lista_ubicar = usar_comodin_revelar(estado_comodines, lista_palabras, palabras_ingresadas, lista_letras, lista_ubicar)
+                lista_ubicar = usar_comodin_ubicar(estado_comodines, lista_palabras, palabras_ingresadas, lista_letras, lista_ubicar)
 
             if procesar:
 
@@ -76,6 +94,22 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
 
 
 def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contador: int) -> bool:
+    """_summary_
+
+    Juega las 3 rondas correspondientes al nivel del juego, mostrando los comodines disponibles.
+    Y muestra en que nivel y ronda esta jugando el usuario
+
+    Args:
+        diccionario (dict): Diccionario del juego que contiene todas las palabras, niveles, letas, etc del juego
+        nivel_actual (int): Numero del nivel que se esta jugando
+        estadisticas (dict): Diccionario donde se guardan las estadisticas
+        contador (int): Contador que cuenta el total de rondas jugas 
+
+    Returns:
+        bool: True si el jugador completa las 3 rondas del nivel,
+              False si no completa el nivel.
+    """
+
 
     rondas = 0
     completar_nivel = True
@@ -94,13 +128,12 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contad
         bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas, contador)
 
         if bandera_ronda:
-
             os.system("pause")
 
-        if bandera_ronda:
+        if bandera_ronda == True:
             rondas += 1
             contador += 1
-        else:
+        elif bandera_ronda == False:
             completar_nivel = False
             rondas = 3    
 
@@ -110,6 +143,23 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contad
 
 
 def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
+    """_summary_
+
+    Controla e inicia el juego completo en un formato de 5 niveles
+
+    Arma el csv que contiene el diccionario, lo reconstruye en formato de lista y lo usa para jugar al juego
+    Admnistra el avance de niveles, controlando el limite de reinicios permitidos
+    Muestra las estadisticas parciales y finales
+    Y por ultima determina si el jugador gano o perdio.
+
+    Args:
+        diccionario (list[dict]): Diccionario base utilizado para generar el CSV con el que se va a jugar el juego.
+        estadisticas (dict): Diccionario donde se van a guardar las estadisticas del nivel o partida
+
+    Returns:
+        bool: True si el jugador completa los 5 niveles del juego.
+              False si alcanza el límite de reinicios
+    """
 
     nivel = 1
     reinicios = 0
