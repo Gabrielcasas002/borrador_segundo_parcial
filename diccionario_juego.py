@@ -21,10 +21,7 @@ diccionario_prueba = [ {"letras" : ["A","C","R","R","O","S"], "palabras" : ["CAR
 diccionario_juego = [
     {
         "nivel": 1,
-        "estado_comodines": {
-        "revelar": False,
-        "ubicar": False
-    },
+        "estado_comodines": [False,False,False],
         "partidas": [
             {"letras": ["A","C","R","R","O","S"],
              "palabras": ["CARROS", "CARRO", "CARO", "ROCA", "ORCA", "ARO", "RARO","ARCO"]},
@@ -39,10 +36,7 @@ diccionario_juego = [
 
     {
         "nivel": 2,
-        "estado_comodines": {
-        "revelar": False,
-        "ubicar": False
-    },
+        "estado_comodines": [False,False,False],
         "partidas": [
             {"letras": ["O","T","J","S","A","O"],
              "palabras": ["OJOTAS","SOJA","JOTA","TOS","AJO","AJOS"]},
@@ -57,10 +51,7 @@ diccionario_juego = [
 
     {
         "nivel": 3,
-        "estado_comodines": {
-        "revelar": False,
-        "ubicar": False
-    },
+        "estado_comodines": [False,False,False],
         "partidas": [
             {"letras": ["D","O","S","I","A","L"],
              "palabras": ["SALDO","DIOS","SAL","LADO","DIOSA","LISO","DOS"]},
@@ -75,10 +66,7 @@ diccionario_juego = [
 
     {
         "nivel": 4,
-        "estado_comodines": {
-        "revelar": False,
-        "ubicar": False
-    },
+        "estado_comodines": [False,False,False],
         "partidas": [
             {"letras": ["A", "R", "U", "N", "I", "T"],
              "palabras": ["RUTINA","RUTA","TINA","RITA","UNIR","URNA","TUNA"]},
@@ -93,10 +81,7 @@ diccionario_juego = [
 
     {
         "nivel": 5,
-        "estado_comodines": {
-        "revelar": False,
-        "ubicar": False
-    },
+        "estado_comodines": [False,False,False],
         "partidas": [
             {"letras": ["R", "O", "S", "E", "P", "R"],
              "palabras": ["PERROS","PERO","PERRO","PESO","RESO","PRESO"]},

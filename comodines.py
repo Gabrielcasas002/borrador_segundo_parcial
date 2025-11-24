@@ -128,6 +128,34 @@ def revelar_mitad(palabras_ingresadas: list, palabras_asociadas: list):
 
 # 2. 🔗 Ubicar letra: Selecciona una letra aleatoriamente y la ubicará en todas las palabras restantes.
 
+# def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: list) -> list:
+
+#     palabras_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
+
+#     letra = seleccionar_string_aleatoria(lista_letras)
+
+#     lista_ubicar = []
+
+#     for i in range(len(palabras_ocultas)):
+#         palabra_real = lista_palabras[i]
+#         palabra_oculta = palabras_ocultas[i]
+
+#         if palabra_oculta == palabra_real:
+#             lista_ubicar.append(palabra_real)
+
+#         nueva = ""
+
+#         for j in range(len(palabra_real)):
+#             if palabra_real[j] == letra:
+#                 nueva += letra
+#             elif palabra_real[j] != letra:
+#                 nueva += palabra_oculta[j]
+
+#         lista_ubicar.append(nueva)
+
+#     return lista_ubicar
+
+
 def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: list) -> list:
 
     palabras_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
@@ -136,20 +164,20 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
 
     lista_ubicar = []
 
-    for i in range(len(palabras_ocultas)):
+    for i in range(len(lista_palabras)):
         palabra_real = lista_palabras[i]
         palabra_oculta = palabras_ocultas[i]
 
-        if palabra_oculta == palabra_real:
-            lista_ubicar.append(palabra_real)
-
         nueva = ""
+        j = 0
+        while j < len(palabra_real):
 
-        for j in range(len(palabra_real)):
             if palabra_real[j] == letra:
                 nueva += letra
-            elif palabra_real[j] != letra:
+            else:
                 nueva += palabra_oculta[j]
+
+            j += 1
 
         lista_ubicar.append(nueva)
 
@@ -169,6 +197,7 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
 #                 break
 
 #     return caracter
+
 
 def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
 
@@ -196,6 +225,52 @@ def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: li
 
     return lista
 
+
+
+# funcion nueva para combinar la lista ubicar con la de palabras.
+
+def combinar_listas_ubicar(lista_ubicar, base, lista_palabras):
+    nueva_lista = []
+
+    # Caso: NO se usó el comodín (lista_ubicar == None)
+    # No puedo usar "is None", así que comparo por igualdad
+    if lista_ubicar == None:
+        # devolvemos una copia de base
+        for elem in base:
+            nueva_lista.append(elem)
+        return nueva_lista
+
+    # Caso: SÍ se usó el comodín
+    for i in range(len(lista_palabras)):
+        palabra_real = lista_palabras[i]
+        base_actual = base[i]
+        palabra_ubicada = lista_ubicar[i]
+
+        # Si palabra_ubicada no es válida → dejar base_actual
+        longitud_correcta = True
+
+        # chequeo longitud válida sin usar continue
+        if palabra_ubicada == None:
+            longitud_correcta = False
+        else:
+            if len(palabra_ubicada) != len(palabra_real):
+                longitud_correcta = False
+
+        # si no es válida, agrego base_actual
+        if not longitud_correcta:
+            nueva_lista.append(base_actual)
+        else:
+            # combinar letra por letra
+            combinada = ""
+            for j in range(len(palabra_real)):
+                if palabra_ubicada[j] != "_":
+                    combinada += palabra_ubicada[j]
+                else:
+                    combinada += base_actual[j]
+
+            nueva_lista.append(combinada)
+
+    return nueva_lista
 
 #--------------------------------------PRUEBAS----------------------------------------------#
 

@@ -89,6 +89,43 @@ def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> li
     return palabras_total
 
 
+# def eliminar_repetidas(lista_palabras: list) -> list:
+#     vistas = []
+#     resultado = []
+
+#     for i in range(len(lista_palabras)):
+#         palabra = lista_palabras[i]
+
+#         repetida = False
+#         for j in range(len(vistas)):
+#             if palabra == vistas[j]:
+#                 repetida = True
+#                 break
+
+#         if repetida == False:
+#             vistas.append(palabra)
+#             resultado.append(palabra)
+
+#     return resultado
+
+
+# def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> list:
+#     palabras_total = []
+
+#     # agregar todas las asociadas
+#     for i in range(len(palabras_asociadas)):
+#         palabras_total.append(palabras_asociadas[i])
+
+#     # agregar todas las descubiertas
+#     for i in range(len(palabras_descubiertas)):
+#         palabras_total.append(palabras_descubiertas[i])
+
+#     # eliminar repetidas
+#     palabras_total = eliminar_repetidas(palabras_total)
+
+#     return palabras_total
+
+
 def estado_nivel(bandera: bool, ronda: int) -> int:
     """_summary_
 

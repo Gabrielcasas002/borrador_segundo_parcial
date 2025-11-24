@@ -6,11 +6,13 @@ import os
 import time
 
 
-
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
 
     nivel_diccionario = diccionario[nivel - 1]
     estado_comodines = nivel_diccionario["estado_comodines"]
+
+    estado_comodines[1] = False
+    lista_ubicar = None
 
     lista_letras = elegir_letras_juego(nivel_diccionario)
     lista_palabras = elegir_palabras_juego(nivel_diccionario, lista_letras)
@@ -18,16 +20,13 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
     palabras_ingresadas = []
     palabras_disponibles = copiar_lista(lista_palabras)
 
-    lista_revelar = None
-    lista_ubicar = None
-
     ocultas = ocultar_palabras(lista_palabras, palabras_ingresadas)
 
     incorrectas = 0
     puntaje_total = 0
 
     tiempo_inicio = time.time()
-    tiempo_limite = 90
+    tiempo_limite = 5
 
     bandera = True
     resultado_partida = False
@@ -39,55 +38,41 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict) -> bool:
         if tiempo_restante <= 0:
             print("\nSe terminó el tiempo !!!")
             bandera = False
+        else:
 
-        if bandera:
-
-            if not estado_comodines["revelar"] and not estado_comodines["ubicar"]:
+            if estado_comodines[1] == False:
                 ocultas = ocultar_palabras(lista_palabras, palabras_ingresadas)
-
-            elif estado_comodines["revelar"] and not estado_comodines["ubicar"]:
-                ocultas = lista_revelar
-
-            elif estado_comodines["ubicar"] and not estado_comodines["revelar"]:
-                ocultas = lista_ubicar
-
             else:
-                ocultas = combinar_listas(lista_ubicar, lista_revelar, lista_palabras)
+                base = ocultar_palabras(lista_palabras, palabras_ingresadas)
+                ocultas = combinar_listas_ubicar(lista_ubicar, base, lista_palabras)
 
             mostrar_estado_partida(lista_letras, ocultas, incorrectas, puntaje_total)
 
-            ingreso = input("Ingrese una palabra: ")
-            procesar_palabra = True
+            ingreso = input("Ingrese una palabra o [2] para usar Ubicar Letras: ")
+            procesar = True
 
+            if ingreso == "2":
+                procesar = False
 
-            if ingreso == "1" or ingreso == "2":
-
-                procesar_palabra = False
-
-                if ingreso == "1" and not estado_comodines["revelar"]:
-                    lista_revelar = revelar_mitad(palabras_ingresadas, lista_palabras)
-                    estado_comodines["revelar"] = True
-
-                elif ingreso == "2" and not estado_comodines["ubicar"]:
+                if estado_comodines[1] == False:
                     lista_ubicar = ubicar_letra(lista_palabras, palabras_ingresadas, lista_letras)
-                    estado_comodines["ubicar"] = True
-
+                    estado_comodines[1] = True
+                    print("\nComodín 'Ubicar letras' aplicado!")
                 else:
-                    print("Ese comodín ya fue usado.")
+                    print("El comodín Ubicar Letras ya fue usado.")
 
                 os.system("pause")
                 os.system("cls")
 
-            if procesar_palabra:
+            if procesar:
 
                 ingreso_mayuscula = transformar_a_mayusculas(ingreso)
-                puntos = procesar_ingreso(ingreso_mayuscula, palabras_disponibles, palabras_ingresadas)
+                puntos = procesar_ingreso(ingreso_mayuscula,palabras_disponibles,palabras_ingresadas)
 
                 if puntos > 0:
                     puntaje_total += puntos
                     print("Tiempo restante:", int(tiempo_restante))
-
-                if puntos == 0:
+                else:
                     incorrectas += 1
 
                 os.system("pause")
@@ -110,11 +95,15 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict) -> boo
 
     nivel_diccionario = diccionario[nivel_actual - 1]
 
+
+
     while rondas < 3:
 
         print(f"\nRonda {rondas + 1} / 3")
 
-        # 🔥 ESTA ERA LA FUNCIÓN QUE ROMPÍA
+        estado_comodines = nivel_diccionario["estado_comodines"]
+        estado_comodines[1] = False
+
         mostrar_comodines(nivel_diccionario["estado_comodines"])
 
         bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas)
@@ -142,13 +131,18 @@ def jugar_juego(diccionario_juego: list[dict], estadisticas: dict) -> bool:
 
         nivel_completo = jugar_nivel(diccionario_juego, nivel, estadisticas)
 
+
         if not nivel_completo:
             reinicios += 1
             print(f"Cantidad de Reinicios: ({reinicios}/{limite_reinicios})")
+            os.system("pause")
+            os.system("cls")
 
         if reinicios == limite_reinicios:
             print("\nAlcanzaste el límite de reinicios.")
             bandera = False
+            os.system("pause")
+            os.system("cls")
 
         if bandera and nivel_completo:
             nivel += 1

@@ -5,7 +5,7 @@ import re
 
 # pasar el diccionario a un modulo csv
 
-def elegir_letras(diccionario: dict) -> list:
+def elegir_letras_csv(diccionario: dict) -> list:
 
     indice = random.randint(0, len(diccionario) - 1)
     lista_letras = diccionario[indice]["letras"]
@@ -13,7 +13,7 @@ def elegir_letras(diccionario: dict) -> list:
     return lista_letras
 
 
-def elegir_palabras(diccionario: dict, letras: list) -> list:
+def elegir_palabras_csv(diccionario: dict, letras: list) -> list:
 
     for i in range(len(diccionario)):
 
@@ -57,8 +57,8 @@ def crear_csv(diccionario: dict):
 
             for j in range(3):
 
-                lista_letras = elegir_letras(diccionario)
-                lista_palabras = elegir_palabras(diccionario, lista_letras)
+                lista_letras = elegir_letras_csv(diccionario)
+                lista_palabras = elegir_palabras_csv(diccionario, lista_letras)
 
                 recorrer_palabras = recorrer_lista_palabras(lista_palabras)
                 recorrer_letras = recorrer_lista_letras(lista_letras)
@@ -69,7 +69,6 @@ def crear_csv(diccionario: dict):
 
                 archivo.write(linea)
 
-crear_csv(diccionario_prueba)
 
 
 # leer csv
@@ -101,8 +100,10 @@ def crear_lista_csv(path: str) -> list:
 def reconstruir_diccionario(path: str) -> list:
 
     lista_final = []
+    lista_banderas = [False,False,False]
+
     for i in range(5):
-        lista_final.append({"nivel": i + 1, "partidas": []}) # Agregar una bandera para los comodines.
+        lista_final.append({"nivel": i + 1, "estado_comodines": lista_banderas, "partidas": []})
 
     with open(path, "r", encoding="utf8") as archivo:
 
@@ -193,3 +194,8 @@ def obtener_colaboradores(titulo: str) -> list:
     return lista
 
 # Para la funcion reconstruir_diccionario(), modular la funcion y intentar usar la funcion rebanar() para borrar los guiones "-". 
+
+
+# crear_csv(diccionario_prueba)
+
+# lista_letras = elegir_letras_csv(dic)
