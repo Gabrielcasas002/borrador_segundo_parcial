@@ -1,14 +1,7 @@
-# 💡 Comodines
-# Durante la partida, el jugador dispone de 3 comodines de uso único, que podrá activar en cualquier momento:
-# 2. 🔗 Ubicar letra: Selecciona una letra aleatoriamente y la ubicará en todas las palabras restantes.
-# 3. 🧠 Comodín extra (A definir por el equipo).
-
 from especificas import *
 from diccionario_juego import *
 import random
 
-
-# 1. 🔍 Revelar palabra: Muestra parcialmente una de las palabras a descubrir.
 
 def rebanar(cadena: str, inicio: int, finalizacion: int) -> str:
     """_summary_
@@ -27,15 +20,16 @@ def rebanar(cadena: str, inicio: int, finalizacion: int) -> str:
 
     return cadena_auxiliar
 
+
 def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> list:
     """_summary_
 
     Args:
-        palabras_asociadas (list): _description_
-        palabras_descubiertas (list): _description_
+        palabras_asociadas (list): Lista de palabras recibida por parametro.
+        palabras_descubiertas (list): Lista de palabras descubiertas por el usuario recibida por parametro.
 
     Returns:
-        list: _description_
+        list: 
     """
 
     palabras_total = []
@@ -56,15 +50,16 @@ def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> li
 
     return palabras_total
 
+
 def ocultar_palabras(palabras_asociadas: list, palabras_descubiertas: list):
     """_summary_
 
     Args:
-        palabras_asociadas (list): _description_
-        palabras_descubiertas (list): _description_
+        palabras_asociadas (list): Lista de palabras recibida por parametro.
+        palabras_descubiertas (list): Lista de palabras decubiertas por el usuario recibida por parametro.
 
     Returns:
-        _type_: _description_
+        list: La funcion retorna una nueva lista modificada utilizando ambas lista. Modifica cada elemento de las listas para agregar "_" a cada indice de los elementos.
     """
 
     palabras_total = listar_palabras(palabras_asociadas, palabras_descubiertas)
@@ -79,14 +74,23 @@ def ocultar_palabras(palabras_asociadas: list, palabras_descubiertas: list):
                 encontrada = True
                 break
 
-        if encontrada:
+        if encontrada == True:
             ocultas.append(palabras_total[i])
-        else:
+        elif encontrada == False:
             ocultas.append("_" * len(palabras_total[i]))
 
     return ocultas
 
-def seleccionar_string_aleatoria(lista: list):
+
+def seleccionar_string_aleatoria(lista: list) -> str:
+    """_summary_
+
+    Args:
+        lista (list): Lista recibida por parametro. 
+
+    Returns:
+        str: La funcion toma un elemento aleatorio de la lista, lo guarda en una variable y lo retorna.
+    """
 
     indice = random.randint(0, len(lista) - 1)
 
@@ -95,8 +99,17 @@ def seleccionar_string_aleatoria(lista: list):
     return indice_string
 
 
-def revelar_mitad(palabras_ingresadas: list, palabras_asociadas: list):
+def revelar_mitad(palabras_ingresadas: list, palabras_asociadas: list) -> list:
+    """_summary_
 
+    Args:
+        palabras_ingresadas (list): Lista de palabras ingresadas por el usuario obtenida por parametro.
+        palabras_asociadas (list): lista de palabras obtenida por parametro.
+
+    Returns:
+        list: La funcion retorna una nueva lista donde uno de sus elementos cuenta con una palabra revelada parcialmente. 
+    """
+    
     ocultas = ocultar_palabras(palabras_asociadas, palabras_ingresadas)
 
     indices_ocultas = []
@@ -125,10 +138,17 @@ def revelar_mitad(palabras_ingresadas: list, palabras_asociadas: list):
     return ocultas
 
 
-
-# 2. 🔗 Ubicar letra: Selecciona una letra aleatoriamente y la ubicará en todas las palabras restantes.
-
 def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: list) -> list:
+    """_summary_
+
+    Args:
+        lista_palabras (list): lista de palabras obtenida por parametro.
+        lista_descubiertas (list): lista de palabras ingresadas por el usuario obtenida por parametro. 
+        lista_letras (list): lista de letras recibida por parametro.
+
+    Returns:
+        list: La funcion busca un caracter aleatorio en la lista de letras, y retorna una nueva lista revelando la letra en las palabras que la contengan.
+    """
 
     palabras_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
 
@@ -157,40 +177,17 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
     return lista_ubicar
 
 
-# def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
+def ubicacion_valida(palabra_ubicada: str, palabra_real: str) -> bool:
+    """_summary_
 
-#     lista = list()
+    Args:
+        palabra_ubicada (str): String recibido por parametro.
+        palabra_real (str): String recibido por parametro.
 
-#     for i in range(len(lista_revelada)):
-#         palabra_revelada = lista_revelada[i]
-#         palabra_ubicada = lista_ubicar[i]
-#         palabra = lista_palabras[i]
+    Returns:
+        bool: Si la palabra ubicada es None o es distina de la palabra real, la bandera cambia de estado y la retorna como False. Caso contrario, retorna True.
+    """
 
-#         palabra_combinada = ""
-
-#         for j in range(len(palabra)):
-#             caracter_ubicar = palabra_ubicada[j]
-#             caracter_revelada = palabra_revelada[j]
-
-#             if caracter_ubicar != "_" and caracter_ubicar == palabra[j]:
-#                 palabra_combinada += caracter_ubicar
-#             elif caracter_revelada != "_" and caracter_revelada == palabra[j]:
-#                 palabra_combinada += caracter_revelada
-#             else:
-#                 palabra_combinada += "_"
-
-#         lista.append(palabra_combinada)
-
-#     return lista
-
-def copiar_lista(lista: list):
-    nueva = []
-    for i in range(len(lista)):
-        nueva.append(lista[i])
-    return nueva
-
-
-def ubicacion_valida(palabra_ubicada, palabra_real):
     bandera = True
     
     if palabra_ubicada == None:
@@ -202,7 +199,18 @@ def ubicacion_valida(palabra_ubicada, palabra_real):
     return bandera
 
 
-def combinar_palabra(base_actual, palabra_real, palabra_ubicada):
+def combinar_palabra(base_actual: str, palabra_real: str, palabra_ubicada: str) -> str:
+    """_summary_
+
+    Args:
+        base_actual (str): String recibido por parametro.
+        palabra_real (str): String recibido por parametro.
+        palabra_ubicada (str): String recibido por parametro.
+
+    Returns:
+        str: la funcion construye un nuevo string combinando los strings recibidos.
+    """
+
     combinada = ""
     
     for i in range(len(palabra_real)):
@@ -214,7 +222,36 @@ def combinar_palabra(base_actual, palabra_real, palabra_ubicada):
     return combinada
 
 
-def combinar_listas_ubicar(lista_ubicar, base, lista_palabras):
+def copiar_lista(lista_original: list) -> list:
+    """_summary_
+
+    Args:
+        lista_original (list): Lista recibida por parametro.
+
+    Returns:
+        list: La funcion copia cada elemento de la lista recibida por parametro. su funcion es hacer lo mismo que el comando .copy()
+    """
+
+    nueva_lista = list()
+
+    for i in range(len(lista_original)):
+        nueva_lista.append(lista_original[i])
+
+    return nueva_lista
+
+
+def combinar_listas_ubicar(lista_ubicar: list, base: list, lista_palabras: list) -> list:
+    """_summary_
+
+    Args:
+        lista_ubicar (list): Lista recibida por parametro que representa a la lista generada por el comodin ubicar_letra .
+        base (list): Lista de palabras descubiertas por el usuario recibida por parametro.
+        lista_palabras (list): Lista de palabras obtenida por parametro.
+
+    Returns:
+        list: la funcion genera una nueva lista con las palabras actualizadas segun las revelaciones que fueron validas en el comodin.
+    """
+
     nueva_lista = []
 
     if lista_ubicar == None:
@@ -234,23 +271,4 @@ def combinar_listas_ubicar(lista_ubicar, base, lista_palabras):
                 nueva_lista.append(combinada)
 
     return nueva_lista
-
-
-
-#--------------------------------------PRUEBAS----------------------------------------------#
-
-
-# nivel = diccionario_juego[0] 
-# lista_letras = elegir_letras_juego(nivel)
-# lista_palabras = elegir_palabras_juego(nivel, lista_letras)
-# lista_descubiertas = []
-# lista_ocultas = ocultar_palabras(lista_palabras, lista_descubiertas)
-# lista_ubicar = ubicar_letra(lista_palabras, lista_descubiertas, lista_letras)
-# lista_revelar = revelar_mitad(lista_ocultas, lista_palabras)
-# lista = combinar_listas(lista_ubicar, lista_revelar, lista_palabras)
-# print(lista_letras)
-# print(lista_palabras)
-# print(lista_ubicar)
-# print(lista_revelar)
-# print(lista)
 

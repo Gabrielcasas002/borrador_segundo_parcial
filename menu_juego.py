@@ -14,8 +14,12 @@ def main():
                 resultado = jugar_juego(diccionario_prueba, diccionario_estadisticas)
                 if resultado:
                     print("\n¡ Felicitaciones, Ganaste El Juego !")
+                    print(f"\nEstadisticas Finales:\n")
+                    mostrar_diccionario(diccionario_estadisticas)
                 else:
                     print("\n💀 Juego terminado. Mejor suerte la próxima.")
+                    print(f"\nEstadisticas Finales:\n")
+                    mostrar_diccionario(diccionario_estadisticas)
                     
             case "2":
                 os.system("cls")

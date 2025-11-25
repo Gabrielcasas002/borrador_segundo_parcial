@@ -46,8 +46,9 @@ def usar_comodines(estado_comodines: dict, ingreso: str):
 
     else:
         print("Ese comodín ya fue usado.")
-    
-def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_ingresadas: list, lista_letras: list, lista_ubicar: list):
+
+
+def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_ingresadas: list, lista_letras: list, lista_ubicar: list) -> list:
     """_summary_
 
     Activa el comodin Ubicar letra si no fue utilizado anteriormente y aplica su efecto
@@ -63,7 +64,7 @@ def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_i
         lista_ubicar (list): Lista donde se guarda el resultado del comodin
 
     Returns:
-        _type_: Lista actualizada con el con efecto del comodin
+        list: Lista actualizada con el con efecto del comodin
     """
 
     if estado_comodines[1] == False:
@@ -79,7 +80,7 @@ def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_i
     return lista_ubicar
 
 
-def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, estado_comodines: bool):
+def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, estado_comodines: bool) -> list:
     """_summary_
 
     Modifica la lista de palabras ocultas, y aplica el efecto del comodin ubicar letra
@@ -98,7 +99,7 @@ def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ub
         estado_comodines (bool): Lista que indica si el comodín fue usado.
 
     Returns:
-        _type_: _description_
+        list: la funcion retorna la lista combinada con el efecto del comodin. Si el comodin ya fue utilizado solo retorna una lista de palabras ocultas.
     """
 
     estado_comodin_ubicar = estado_comodines[1]

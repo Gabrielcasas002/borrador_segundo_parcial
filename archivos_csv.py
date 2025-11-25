@@ -67,7 +67,7 @@ def limpiar_lista_csv(diccionario: list, lista_letras: list, lista_palabras: lis
             break
 
 
-def recorrer_lista_letras(lista: list):
+def recorrer_lista_letras(lista: list) -> str:
     """_summary_
 
     Convierte una lista de letras en un string sin separadores.
@@ -76,7 +76,7 @@ def recorrer_lista_letras(lista: list):
         lista (list): Lista a recorrer
 
     Returns:
-        _type_: Devuelve la lista letras como una cadena
+        str: Devuelve la lista letras como una cadena
     """
 
     cadena = ""
@@ -87,7 +87,7 @@ def recorrer_lista_letras(lista: list):
     return cadena
 
 
-def recorrer_lista_palabras(lista: list):
+def recorrer_lista_palabras(lista: list) -> str:
     """_summary_
 
     Convierte una lista de palabras en un string separado por guiones.
@@ -96,7 +96,7 @@ def recorrer_lista_palabras(lista: list):
         lista (list): Lista de palabras
 
     Returns:
-        _type_: Devuelve una cadena separando cada palabra con guiones
+        str: Devuelve una cadena separando cada palabra con guiones
     """
 
     cadena = ""
@@ -176,7 +176,7 @@ def crear_csv(diccionario: dict):
                 archivo.write(linea)
 
 
-def armar_palabras(palabra_actual: str, palabras_str: str):
+def armar_palabras(palabra_actual: str, palabras_str: str) -> list:
     """_summary_
 
     Convierte un string de palabras unidas por guiones en una lista de palabras.

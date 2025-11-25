@@ -186,9 +186,6 @@ def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
             print("\nAlcanzaste el límite de reinicios.")
             bandera = False
             
-            print(f"\nEstadisticas Finales:\n")
-            mostrar_diccionario(estadisticas)
-            
             os.system("pause")
             os.system("cls")
 
@@ -204,10 +201,8 @@ def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
         if nivel == 6:
             juego_ganado = True
             bandera = False
-            print(f"\nEstadisticas Finales:\n")
-            mostrar_diccionario(estadisticas)
-            
-            os.system("pause")
-            os.system("cls")
+
+            # os.system("pause")
+            # os.system("cls")
 
     return juego_ganado
