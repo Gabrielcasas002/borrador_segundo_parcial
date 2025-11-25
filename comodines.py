@@ -29,7 +29,7 @@ def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> li
         palabras_descubiertas (list): Lista de palabras descubiertas por el usuario recibida por parametro.
 
     Returns:
-        list: 
+        list: Returna una lista sin elementos repetidos
     """
 
     palabras_total = []
@@ -157,17 +157,17 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
     lista_ubicar = []
 
     for i in range(len(lista_palabras)):
-        palabra_real = lista_palabras[i]
+        palabra = lista_palabras[i]
         palabra_oculta = palabras_ocultas[i]
 
         nueva = ""
         
         j = 0
-        while j < len(palabra_real):
+        while j < len(palabra):
 
-            if palabra_real[j] == letra:
+            if palabra[j] == letra:
                 nueva += letra
-            elif palabra_real[j] != letra:
+            elif palabra[j] != letra:
                 nueva += palabra_oculta[j]
 
             j += 1
@@ -177,7 +177,7 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
     return lista_ubicar
 
 
-def ubicacion_valida(palabra_ubicada: str, palabra_real: str) -> bool:
+def ubicacion_valida(palabra_ubicada: str, palabra: str) -> bool:
     """_summary_
 
     Args:
@@ -193,18 +193,18 @@ def ubicacion_valida(palabra_ubicada: str, palabra_real: str) -> bool:
     if palabra_ubicada == None:
         bandera = False
 
-    elif len(palabra_ubicada) != len(palabra_real):
+    elif len(palabra_ubicada) != len(palabra):
         bandera = False
     
     return bandera
 
 
-def combinar_palabra(base_actual: str, palabra_real: str, palabra_ubicada: str) -> str:
+def combinar_palabra(base_actual: str, palabra: str, palabra_ubicada: str) -> str:
     """_summary_
 
     Args:
         base_actual (str): String recibido por parametro.
-        palabra_real (str): String recibido por parametro.
+        palabra (str): String recibido por parametro.
         palabra_ubicada (str): String recibido por parametro.
 
     Returns:
@@ -213,7 +213,7 @@ def combinar_palabra(base_actual: str, palabra_real: str, palabra_ubicada: str) 
 
     combinada = ""
     
-    for i in range(len(palabra_real)):
+    for i in range(len(palabra)):
         if palabra_ubicada[i] != "_":
             combinada += palabra_ubicada[i]
         elif palabra_ubicada[i] == "_":
@@ -240,7 +240,7 @@ def copiar_lista(lista_original: list) -> list:
     return nueva_lista
 
 
-def combinar_listas_ubicar(lista_ubicar: list, base: list, lista_palabras: list) -> list:
+def combinar_listas_ubicar(lista_ubicar: list, lista_ocultas_base: list, lista_palabras: list) -> list:
     """_summary_
 
     Args:
@@ -255,19 +255,19 @@ def combinar_listas_ubicar(lista_ubicar: list, base: list, lista_palabras: list)
     nueva_lista = []
 
     if lista_ubicar == None:
-        nueva_lista = copiar_lista(base)
+        nueva_lista = copiar_lista(lista_ocultas_base)
 
     else:
         for i in range(len(lista_palabras)):
-            palabra_real = lista_palabras[i]
-            base_actual = base[i]
+            palabra = lista_palabras[i]
+            lista_base_actual = lista_ocultas_base[i]
             palabra_ubicada = lista_ubicar[i]
-            bandera = ubicacion_valida(palabra_ubicada, palabra_real)
+            bandera = ubicacion_valida(palabra_ubicada, palabra)
 
             if bandera == False:
-                nueva_lista.append(base_actual)
+                nueva_lista.append(lista_base_actual)
             elif bandera == True:
-                combinada = combinar_palabra(base_actual, palabra_real, palabra_ubicada)
+                combinada = combinar_palabra(lista_base_actual, palabra, palabra_ubicada)
                 nueva_lista.append(combinada)
 
     return nueva_lista
