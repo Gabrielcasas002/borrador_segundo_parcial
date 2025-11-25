@@ -151,11 +151,6 @@ def crear_csv(diccionario: dict):
         diccionario (dict): Diccionario base con letras y palabras 
     """
 
-    diccionario_aux = []
-    for i in range(len(diccionario)):
-        diccionario_aux.append(diccionario[i])
-
-
     with open("diccionario_juego.csv", "w") as archivo:
 
         for i in range (0, 5):
@@ -192,11 +187,11 @@ def armar_palabras(palabra_actual: str, palabras_str: str) -> list:
     palabras_lista = []
 
     for i in range(len(palabras_str)):
-                if palabras_str[i] != "-":
-                    palabra_actual += palabras_str[i]
-                else:
-                    palabras_lista.append(palabra_actual)
-                    palabra_actual = ""
+        if palabras_str[i] != "-":
+            palabra_actual += palabras_str[i]
+        elif palabras_str[i] == "-":
+            palabras_lista.append(palabra_actual)
+            palabra_actual = ""
 
     if palabra_actual != "":
         palabras_lista.append(palabra_actual)
