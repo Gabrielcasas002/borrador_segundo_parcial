@@ -1,5 +1,5 @@
 from diccionario_juego import *
-from juego_muestra import *
+from main_juego import *
 import os
 
 def main():
@@ -20,7 +20,6 @@ def main():
                     print("\n💀 Juego terminado. Mejor suerte la próxima.")
                     print(f"\nEstadisticas Finales:\n")
                     mostrar_diccionario(diccionario_estadisticas)
-                    
             case "2":
                 os.system("cls")
                 print("Estadisticas:\n")

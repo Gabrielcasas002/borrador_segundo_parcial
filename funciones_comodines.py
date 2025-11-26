@@ -14,15 +14,11 @@ def mostrar_comodines(estado_comodines: list):
 
     """
 
-    # if estado_comodines[0] == False:
-    #     print("Ingrese [1] para usar Revelar Palabra")
-    # else:
-    #     print("El comodín Revelar Palabra ya fue usado.")
-
-    if estado_comodines[1] == False:
+    if estado_comodines[0] == False and estado_comodines[1] == False:
+        print("Ingrese [1] para usar Revelar Palabra\n")
         print("Ingrese [2] para usar Ubicar Letras\n")
-    else:
-        print("El comodín Ubicar Letras ya fue usado.\n")
+
+
 
 
 def usar_comodines(estado_comodines: list, ingreso: str):
@@ -37,15 +33,42 @@ def usar_comodines(estado_comodines: list, ingreso: str):
         ingreso (str): Opcion ingresada por el usuario 
     """
 
-
     if ingreso == "1" and estado_comodines[0] == False:
         estado_comodines[0] = True
+    elif ingreso == "1" and estado_comodines[0] == False:
+        print("Ese comodín Revelar [1] ya fue usado.")
 
     elif ingreso == "2" and estado_comodines[1] == False:
         estado_comodines[1] = True
-
     else:
-        print("Ese comodín ya fue usado.")
+        print("Ese comodín Ubicar Letra [2] ya fue usado.")
+
+
+def usar_comodin_revelar(estado_comodines: list, lista_palabras: list, palabras_ingresadas: list, lista_revelar: list) -> list:
+    """_summary_
+
+    Args:
+        estado_comodines (list): Lista de banderas recibida por parametro.
+        lista_palabras (list): Lista de palabras recibida por parametro.
+        palabras_ingresadas (list): Lista de palabras ingresadas por el usuario recibida por parametro.
+        lista_revelar (list): Lista donde se aplicará el comodin.
+
+    Returns:
+        list: Si la bandera mantiene su estado original, el comodin se podra aplicar a la lista_revelar sin problema. 
+              Caso contrario, le notificará al usuario que el comodin ya fue utilizado. 
+    """
+
+    if estado_comodines[0] == False:
+        lista_revelar = revelar_mitad(palabras_ingresadas, lista_palabras)
+        estado_comodines[0] = True
+        print("\nComodín 'Revelar Palabra' aplicado!")
+    else:
+        print("El comodín Revelar Palabra ya fue usado.")
+
+    os.system("pause")
+    os.system("cls")
+    
+    return lista_revelar
 
 
 def usar_comodin_ubicar(estado_comodines: list, lista_palabras: list, palabras_ingresadas: list, lista_letras: list, lista_ubicar: list) -> list:
@@ -76,11 +99,11 @@ def usar_comodin_ubicar(estado_comodines: list, lista_palabras: list, palabras_i
 
     os.system("pause")
     os.system("cls")
-    
+
     return lista_ubicar
 
 
-def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, estado_comodines: list) -> list:
+def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, lista_revelar: list, estado_comodines: list) -> list:
     """_summary_
 
     Modifica la lista de palabras ocultas, y aplica el efecto del comodin ubicar letra
@@ -94,19 +117,54 @@ def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ub
 
     Args:
         lista_palabras (list): Lista original de todas las palabras de la ronda.
-        palabras_ingresadas (list): Lista de palabras ya adivinidadas
-        lista_ubicar (list): Lista donde se guarda el resultado del comodin
+        palabras_ingresadas (list): Lista de palabras ya adivinidadas.
+        lista_ubicar (list): Lista donde se guarda el resultados del segundo comodin.
+        lista_revelar (list): Lista donde se guarda el resultados del primer comodin.
         estado_comodines (list): Lista que indica si el comodín fue usado.
 
     Returns:
         list: la funcion retorna la lista combinada con el efecto del comodin. Si el comodin ya fue utilizado solo retorna una lista de palabras ocultas.
     """
 
-    estado_comodin_ubicar = estado_comodines[1]
-
     lista_ocultas_base = ocultar_palabras(lista_palabras, palabras_ingresadas)
+
     combinada = lista_ocultas_base
-    if estado_comodin_ubicar:
+
+    if estado_comodines[0] and not estado_comodines[1]:
+        combinada = combinar_listas_ubicar(lista_revelar, lista_ocultas_base, lista_palabras)
+
+    if estado_comodines[1] and not estado_comodines[0]:
         combinada = combinar_listas_ubicar(lista_ubicar, lista_ocultas_base, lista_palabras)
 
+    if estado_comodines[0] and estado_comodines[1]:
+
+        mitad = combinar_listas_ubicar(lista_revelar, lista_ocultas_base, lista_palabras)
+        ubicar = combinar_listas_ubicar(lista_ubicar, lista_ocultas_base, lista_palabras)
+        combinada = combinar_listas(ubicar, mitad, lista_palabras)
+
     return combinada
+
+
+def obtener_ingreso(estado_comodines: list) -> str:
+    """_summary_
+
+    Args:
+        estado_comodines (list): Lista de banderas recibida por parametro.
+
+    Returns:
+        str: La funcion le pide un dato al usuario y dependiendo del estado de la bandera, le mostrará un mensaje avisandole que puede usar un comodin.
+             Finalmente, retorna el dato ingresado por el usuario.
+    """
+
+    if estado_comodines[0] == False and estado_comodines[1] == False:
+        ingreso = input("Ingrese una palabra. [1] o [2] para Comodines: ")
+    elif estado_comodines[0] == False and estado_comodines[1] == True:
+        ingreso = input("Ingrese una palabra o [1] para usar Revelar: ")
+    elif estado_comodines[0] == True and estado_comodines[1] == False:
+        ingreso = input("Ingrese una palabra o [2] para usar Ubicar Letras: ")
+    else:
+        ingreso = input("Ingrese una palabra: ")
+
+    return ingreso
+
+

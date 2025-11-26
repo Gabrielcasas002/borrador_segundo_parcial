@@ -275,3 +275,32 @@ def combinar_listas_ubicar(lista_ubicar: list, lista_ocultas_base: list, lista_p
 
     return nueva_lista
 
+
+def combinar_listas(lista_ubicar: list, lista_revelada: list, lista_palabras: list) -> list:
+    
+    lista = []
+
+    for i in range(len(lista_palabras)):
+        palabra_real = lista_palabras[i]
+        palabra_ubicada = lista_ubicar[i]
+        palabra_revelada = lista_revelada[i]
+
+        palabra_final = ""
+
+        for j in range(len(palabra_real)):
+            letra_real = palabra_real[j]
+            letra_ubicada = palabra_ubicada[j]
+            letra_revelada = palabra_revelada[j]
+
+            if letra_ubicada != "_" and letra_ubicada == letra_real:
+                palabra_final += letra_ubicada
+
+            elif letra_revelada != "_" and letra_revelada == letra_real:
+                palabra_final += letra_revelada
+
+            else:
+                palabra_final += "_"
+
+        lista.append(palabra_final)
+
+    return lista
