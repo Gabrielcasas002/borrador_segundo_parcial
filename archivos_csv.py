@@ -264,7 +264,7 @@ def elegir_nivel(diccionario_niveles: list, numero: int) -> dict:
             return diccionario_niveles[i]
 
 
-def elegir_letras_nivel(nivel: list) -> list:
+def elegir_letras_nivel(nivel: dict) -> list:
     """_summary_
 
     Selecciona aleatoriamente las letras de una partida dentro de un nivel.
@@ -282,7 +282,7 @@ def elegir_letras_nivel(nivel: list) -> list:
     return lista_letras
 
 
-def elegir_palabras_nivel(nivel: list, letras: list) -> list:
+def elegir_palabras_nivel(nivel: dict, letras: list) -> list:
     """_summary_
 
     Devuelve la lista de palabras correspondiente a un conjunto de letras dentro de un nivel.

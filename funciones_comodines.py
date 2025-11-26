@@ -25,7 +25,7 @@ def mostrar_comodines(estado_comodines: list):
         print("El comodín Ubicar Letras ya fue usado.\n")
 
 
-def usar_comodines(estado_comodines: dict, ingreso: str):
+def usar_comodines(estado_comodines: list, ingreso: str):
     """_summary_
 
     Marca un comodin como utilizado segun el ingreso del usuario 
@@ -33,7 +33,7 @@ def usar_comodines(estado_comodines: dict, ingreso: str):
     anteriormente
 
     Args:
-        estado_comodines (dict): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
+        estado_comodines (list): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
         ingreso (str): Opcion ingresada por el usuario 
     """
 
@@ -48,7 +48,7 @@ def usar_comodines(estado_comodines: dict, ingreso: str):
         print("Ese comodín ya fue usado.")
 
 
-def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_ingresadas: list, lista_letras: list, lista_ubicar: list) -> list:
+def usar_comodin_ubicar(estado_comodines: list, lista_palabras: list, palabras_ingresadas: list, lista_letras: list, lista_ubicar: list) -> list:
     """_summary_
 
     Activa el comodin Ubicar letra si no fue utilizado anteriormente y aplica su efecto
@@ -57,7 +57,7 @@ def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_i
     Una vez aplicado el comodin, modifica la lista ubicar para que pueda usarse y seguir con el juego.
 
     Args:
-        estado_comodines (bool): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
+        estado_comodines (list): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
         lista_palabras (list): Lista de palabras que aun no fueron adivinadas
         palabras_ingresadas (list): Lista de palabras ya adivinidadas
         lista_letras (list): Lista letras seleccionadas para jugar la ronda
@@ -80,7 +80,7 @@ def usar_comodin_ubicar(estado_comodines: bool, lista_palabras: list, palabras_i
     return lista_ubicar
 
 
-def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, estado_comodines: bool) -> list:
+def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, estado_comodines: list) -> list:
     """_summary_
 
     Modifica la lista de palabras ocultas, y aplica el efecto del comodin ubicar letra
@@ -96,7 +96,7 @@ def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ub
         lista_palabras (list): Lista original de todas las palabras de la ronda.
         palabras_ingresadas (list): Lista de palabras ya adivinidadas
         lista_ubicar (list): Lista donde se guarda el resultado del comodin
-        estado_comodines (bool): Lista que indica si el comodín fue usado.
+        estado_comodines (list): Lista que indica si el comodín fue usado.
 
     Returns:
         list: la funcion retorna la lista combinada con el efecto del comodin. Si el comodin ya fue utilizado solo retorna una lista de palabras ocultas.

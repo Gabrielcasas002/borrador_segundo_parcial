@@ -180,6 +180,9 @@ def ubicar_letra(lista_palabras: list, lista_descubiertas: list, lista_letras: l
 def ubicacion_valida(palabra_ubicada: str, palabra: str) -> bool:
     """_summary_
 
+    Recibe dos cadenas, y verifica si palabra_ubicada tiene contenido, si no tiene retorna un false.
+    Y si tiene contenido pero no tienen el mismo largo, tambien retorna un false.
+
     Args:
         palabra_ubicada (str): String recibido por parametro.
         palabra_real (str): String recibido por parametro.
@@ -199,7 +202,7 @@ def ubicacion_valida(palabra_ubicada: str, palabra: str) -> bool:
     return bandera
 
 
-def combinar_palabra(base_actual: str, palabra: str, palabra_ubicada: str) -> str:
+def combinar_palabra(ocultas_actual: str, palabra: str, palabra_ubicada: str) -> str:
     """_summary_
 
     Args:
@@ -217,7 +220,7 @@ def combinar_palabra(base_actual: str, palabra: str, palabra_ubicada: str) -> st
         if palabra_ubicada[i] != "_":
             combinada += palabra_ubicada[i]
         elif palabra_ubicada[i] == "_":
-            combinada += base_actual[i]
+            combinada += ocultas_actual[i]
     
     return combinada
 
@@ -260,14 +263,14 @@ def combinar_listas_ubicar(lista_ubicar: list, lista_ocultas_base: list, lista_p
     else:
         for i in range(len(lista_palabras)):
             palabra = lista_palabras[i]
-            lista_base_actual = lista_ocultas_base[i]
+            cadena_ocultas_actual = lista_ocultas_base[i]
             palabra_ubicada = lista_ubicar[i]
             bandera = ubicacion_valida(palabra_ubicada, palabra)
 
             if bandera == False:
-                nueva_lista.append(lista_base_actual)
+                nueva_lista.append(cadena_ocultas_actual)
             elif bandera == True:
-                combinada = combinar_palabra(lista_base_actual, palabra, palabra_ubicada)
+                combinada = combinar_palabra(cadena_ocultas_actual, palabra, palabra_ubicada)
                 nueva_lista.append(combinada)
 
     return nueva_lista

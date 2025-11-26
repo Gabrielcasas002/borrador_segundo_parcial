@@ -87,23 +87,6 @@ def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> li
     return palabras_total
 
 
-def estado_nivel(bandera: bool, ronda: int) -> int:
-    """_summary_
-
-    Args:
-        bandera (bool): Booleano recibido por parametro que representa la continuidad del juego.
-        ronda (int): Entero recibido por parametro que representa la cantidad de rondas.
-
-    Returns:
-        int: Si el Booleano mantiene su estado a True y el Entero es menor a 6, la funcion le suma uno a la variable ronda y la retorna.
-    """
-    
-    if bandera == True and ronda < 6:
-        ronda += 1
-
-    return ronda
-
-
 def sumar_estadisticas(estadisticas: dict, puntuacion_ronda: int, cantidad_de_ingresos_incorrectos: int, tiempo_restante: int, contador: int, tiempo_ronda: float):
     """_summary_
 
@@ -199,7 +182,7 @@ def ocultar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> l
 
     return ocultas
 
-
+# Referencia
 def elegir_letras_juego(nivel: dict) -> list:
     """_summary_
 
@@ -215,7 +198,7 @@ def elegir_letras_juego(nivel: dict) -> list:
 
     return lista_letras
 
-
+# Referencia
 def elegir_palabras_juego(nivel: dict, letras: list) -> list:
     """_summary_
 
