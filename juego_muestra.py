@@ -202,7 +202,5 @@ def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
             juego_ganado = True
             bandera = False
 
-            # os.system("pause")
-            # os.system("cls")
 
     return juego_ganado
