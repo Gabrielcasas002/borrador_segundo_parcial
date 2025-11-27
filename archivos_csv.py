@@ -1,5 +1,6 @@
 from diccionario_juego import *
 from funciones_csv import *
+from especificas import *
 import re
 
 def validar_crear_csv(bandera: bool):
@@ -20,6 +21,7 @@ def validar_reconstruir_diccionario(bandera: bool):
 
 def crear_csv(diccionario: dict):
 
+    diccionario_copia = copiar_lista(diccionario)
     hubo_error = False
 
     try:
@@ -30,10 +32,9 @@ def crear_csv(diccionario: dict):
 
                 for j in range(3):
                     try:
-                        lista_letras = elegir_letras_csv(diccionario)
-                        lista_palabras = elegir_palabras_csv(diccionario, lista_letras)
+                        lista_letras = elegir_letras_csv(diccionario_copia)
+                        lista_palabras = elegir_palabras_csv(diccionario_copia, lista_letras)
 
-                        # VALIDACIÓN – evita líneas corruptas
                         datos_validos = True
 
                         if not lista_letras:
@@ -47,7 +48,7 @@ def crear_csv(diccionario: dict):
                             recorrer_palabras = recorrer_lista_palabras(lista_palabras)
                             recorrer_letras = recorrer_lista_letras(lista_letras)
 
-                            eliminar_lista_csv(diccionario, lista_letras, lista_palabras)
+                            eliminar_lista_csv(diccionario_copia, lista_letras, lista_palabras)
 
                             linea = f"{nivel},{recorrer_letras},{recorrer_palabras}\n"
                             archivo.write(linea)

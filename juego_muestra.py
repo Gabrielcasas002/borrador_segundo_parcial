@@ -4,8 +4,7 @@ from funciones_comodines import *
 from archivos_csv import *
 import os
 
-
-def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int) -> bool:
+def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int, partidas_temporales: list) -> bool:
     """_summary_
 
     Juega una ronda completa del juego, eligiendo las letras, palabras del nivel
@@ -18,17 +17,19 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
         nivel (int): Nivel actual a jugar 
         estadisticas (dict): Diccionario donde se guardan las estadisticas de la partida
         contador (int): Contador que cuenta cuantas rondas se jugaron 
+        partidas_temporales (list): Lista de diccionario obtenida por parametro utilizada para cada ronda.
 
     Returns:
         bool: True si la ronda fue completada correctamente
               False si terminó por tiempo 
     """
 
+    partida_actual = partidas_temporales.pop(0)
 
-    nivell_actual = elegir_nivel(diccionario, nivel)
-    lista_letras = elegir_letras_nivel(nivell_actual)
-    lista_palabras = elegir_palabras_nivel(nivell_actual, lista_letras)
-    estado_comodines = nivell_actual["estado_comodines"]
+    lista_letras = copiar_lista(partida_actual["letras"])
+    lista_palabras = copiar_lista(partida_actual["palabras"])
+
+    estado_comodines = diccionario[nivel - 1]["estado_comodines"]
 
     lista_revelar = None
     lista_ubicar = None
@@ -56,46 +57,39 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
             bandera = False
         
         else:
-
-            ocultas = actualizar_ocultas(lista_palabras, palabras_ingresadas, lista_ubicar, lista_revelar, estado_comodines)
+            ocultas = actualizar_ocultas(lista_palabras,palabras_ingresadas,lista_ubicar,lista_revelar,estado_comodines)
 
             mostrar_estado_partida(lista_letras, ocultas, incorrectas, puntaje_total)
 
             ingreso = obtener_ingreso(estado_comodines)
-            
             procesar = True
             
             if ingreso == "1":
-
                 procesar = False
-                lista_revelar = usar_comodin_revelar(estado_comodines, lista_palabras, palabras_ingresadas, lista_revelar)
+                lista_revelar = usar_comodin_revelar(estado_comodines,lista_palabras,palabras_ingresadas,lista_revelar)
 
             elif ingreso == "2":
-
                 procesar = False
-                lista_ubicar = usar_comodin_ubicar(estado_comodines, lista_palabras, palabras_ingresadas, lista_letras, lista_ubicar)
+                lista_ubicar = usar_comodin_ubicar(estado_comodines,lista_palabras,palabras_ingresadas,lista_letras,lista_ubicar)
 
             if procesar:
+                puntos = verificar_ingreso(ingreso,palabras_disponibles,palabras_ingresadas)
 
-                puntos = verificar_ingreso(ingreso, palabras_disponibles, palabras_ingresadas)    
                 if puntos > 0:
                     puntaje_total += puntos
-                    print("Tiempo restante:", int(tiempo_restante))                
                 else:
                     incorrectas += 1
-                    print("Tiempo restante:", int(tiempo_restante))
 
+                print("Tiempo restante:", int(tiempo_restante))
                 os.system("pause")
                 os.system("cls")
 
             if len(palabras_disponibles) == 0:
-                limpiar_lista(diccionario, nivel, lista_letras, lista_palabras)
-                finalizar_partida(puntaje_total, incorrectas, int(tiempo_restante), estadisticas, contador, tiempo_inicio)
+                finalizar_partida(puntaje_total,incorrectas,int(tiempo_restante),estadisticas,contador,tiempo_inicio)
                 resultado_partida = True
                 bandera = False
 
     return resultado_partida
-
 
 
 def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contador: int) -> bool:
@@ -115,10 +109,11 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contad
               False si no completa el nivel.
     """
 
-
     rondas = 0
     completar_nivel = True
     nivel_diccionario = diccionario[nivel_actual - 1]
+
+    partidas_temporales = copiar_lista(nivel_diccionario["partidas"])
 
     while rondas < 3:
 
@@ -127,10 +122,9 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contad
         print(f"Ronda {rondas + 1} / 3\n")
 
         estado_comodines = nivel_diccionario["estado_comodines"]
-
         mostrar_comodines(estado_comodines)
 
-        bandera_ronda = jugar_palabras(diccionario, nivel_actual, estadisticas, contador)
+        bandera_ronda = jugar_palabras(diccionario,nivel_actual,estadisticas, contador, partidas_temporales)
 
         if bandera_ronda:
             os.system("pause")
@@ -138,7 +132,7 @@ def jugar_nivel(diccionario: dict, nivel_actual: int, estadisticas: dict, contad
         if bandera_ronda == True:
             rondas += 1
             contador += 1
-        elif bandera_ronda == False:
+        else:
             completar_nivel = False
             rondas = 3    
 

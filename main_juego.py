@@ -1,4 +1,4 @@
-from juego_muestra import *
+from borrador import *
 
 def jugar_juego(diccionario: list[dict], estadisticas: dict) -> bool:
     """_summary_
