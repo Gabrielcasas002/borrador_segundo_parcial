@@ -14,34 +14,10 @@ def mostrar_comodines(estado_comodines: list):
 
     """
 
-    if estado_comodines[0] == False and estado_comodines[1] == False:
+    if estado_comodines[0] == False and estado_comodines[1] == False and estado_comodines[2] == False:
         print("Ingrese [1] para usar Revelar Palabra\n")
         print("Ingrese [2] para usar Ubicar Letras\n")
-
-
-
-
-def usar_comodines(estado_comodines: list, ingreso: str):
-    """_summary_
-
-    Marca un comodin como utilizado segun el ingreso del usuario 
-    Controla que el usuario seleccione un comodin valido, y que no pueda usar un comodin que ya fue activado
-    anteriormente
-
-    Args:
-        estado_comodines (list): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
-        ingreso (str): Opcion ingresada por el usuario 
-    """
-
-    if ingreso == "1" and estado_comodines[0] == False:
-        estado_comodines[0] = True
-    elif ingreso == "1" and estado_comodines[0] == False:
-        print("Ese comodín Revelar [1] ya fue usado.")
-
-    elif ingreso == "2" and estado_comodines[1] == False:
-        estado_comodines[1] = True
-    else:
-        print("Ese comodín Ubicar Letra [2] ya fue usado.")
+        print("Ingrese [3] para usar comodin Ta-Te-Ti\n")
 
 
 def usar_comodin_revelar(estado_comodines: list, lista_palabras: list, palabras_ingresadas: list, lista_revelar: list) -> list:
@@ -156,12 +132,27 @@ def obtener_ingreso(estado_comodines: list) -> str:
              Finalmente, retorna el dato ingresado por el usuario.
     """
 
-    if estado_comodines[0] == False and estado_comodines[1] == False:
-        ingreso = input("Ingrese una palabra. [1] o [2] para Comodines: ")
-    elif estado_comodines[0] == False and estado_comodines[1] == True:
-        ingreso = input("Ingrese una palabra o [1] para usar Revelar: ")
-    elif estado_comodines[0] == True and estado_comodines[1] == False:
+    if estado_comodines[0] == False and estado_comodines[1] == False and estado_comodines[2] == False:
+        ingreso = input("Ingrese una palabra. [1] o [2] o [3] para Comodines: ")
+    
+    elif estado_comodines[0] == False and estado_comodines[1] == False and estado_comodines[2] == True:
+        ingreso = input("Ingrese una palabra, [1] o [2] para usar Revelar o Ubicar: ")
+    
+    elif estado_comodines[0] == False and estado_comodines[1] == True and  estado_comodines[2] == False:
+        ingreso = input("Ingrese una palabra, [1] o [3] para usar Revelar o Ta-te-ti: ")
+    
+    elif estado_comodines[0] == True and estado_comodines[1] == False and  estado_comodines[2] == False:
+        ingreso = input("Ingrese una palabra, [2] o [3] para usar Ubicar Letras o Ta-te-ti: ")
+    
+    elif estado_comodines[0] == False and estado_comodines[1] == True and  estado_comodines[2] == True:
+        ingreso = input("Ingrese una palabra, [1] para usar Revelar Palabra: ")
+
+    elif estado_comodines[0] == True and estado_comodines[1] == False and  estado_comodines[2] == True:
         ingreso = input("Ingrese una palabra o [2] para usar Ubicar Letras: ")
+
+    elif estado_comodines[0] == True and estado_comodines[1] == True and  estado_comodines[2] == False:
+        ingreso = input("Ingrese una palabra o [3] para usar Comodin Ta-te-ti: ")
+    
     else:
         ingreso = input("Ingrese una palabra: ")
 

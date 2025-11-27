@@ -13,16 +13,18 @@ def crear_archivo_json():
         with open("usuariosprueba.json", "w") as archivo:
             archivo.write("[]")
 
-
 def leer_json():
+    datos = []  
+
     try:
         with open("usuariosprueba.json", "r") as archivo:
-            return json.load(archivo)
+            datos = json.load(archivo)
     except:
         with open("usuariosprueba.json", "w") as archivo:
             archivo.write("[]")
-        return []
+        datos = [] 
 
+    return datos
 
 def guardar_json(lista):
     try:
@@ -61,18 +63,17 @@ def registrar_usuario():
 
         usuarios.append(nuevo_usuario)
         guardar_json(usuarios)
-        print("✔ Usuario registrado con éxito.")
+        print("Usuario registrado con éxito.")
         resultado = True
 
     return resultado   
-
 
 
 def login():
     resultado = None
     usuarios = leer_json()
 
-    print("\n--- INICIAR SESIÓN ---")
+    print("INICIAR SESION:\n")
 
     nombre = input("Usuario: ")
     contrasena = input("Contraseña: ")
@@ -83,44 +84,12 @@ def login():
             encontrado = usuarios[i]
 
     if encontrado != None:
-        print("Inicio de sesión exitoso.")
+        print("Inicio de sesión exitoso.\n")
         resultado = encontrado
     else:
-        print("Usuario o contraseña incorrectos.")
+        print("Usuario o contraseña incorrectos.\n")
 
     return resultado  
-
-
-
-def menu_inicio():
-    crear_archivo_json()
-    usuario_logueado = None
-    salir = False
-
-    while salir == False:
-        print("\n1. Iniciar sesión")
-        print("2. Registrarse")
-        print("3. Salir")
-
-        opcion = input("Elija una opción: ")
-
-        if opcion == "1":
-            usuario = login()
-            if usuario != None:
-                usuario_logueado = usuario
-                salir = True
-
-        elif opcion == "2":
-            registrar_usuario()
-
-        elif opcion == "3":
-            print("Saliendo...")
-            salir = True
-
-        else:
-            print("Opción inválida.")
-
-    return usuario_logueado  
 
 def actualizar_usuario_estadisticas(usuario_modificado: dict):
     usuarios = leer_json()

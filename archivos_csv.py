@@ -136,8 +136,3 @@ def reconstruir_diccionario(path: str) -> list:
     validar_reconstruir_diccionario(hubo_error)
 
     return lista_final
-
-# diccionario_nuevo = {}
-# bandera = crear_csv(diccionario_prueba)
-# diccionario = reconstruir_diccionario("diccionario_juego.csv", bandera)
-# print(diccionario)

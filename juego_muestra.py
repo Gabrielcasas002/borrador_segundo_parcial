@@ -2,6 +2,7 @@ from especificas import *
 from diccionario_juego import *
 from funciones_comodines import *
 from archivos_csv import *
+from comodin_extra import *
 import os
 
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int, partidas_temporales: list) -> bool:
@@ -72,6 +73,11 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
             elif ingreso == "2":
                 procesar = False
                 lista_ubicar = usar_comodin_ubicar(estado_comodines,lista_palabras,palabras_ingresadas,lista_letras,lista_ubicar)
+            
+            elif ingreso == "3":
+                procesar = False
+                resultado_partida = usar_comodin_tateti(estado_comodines, resultado_partida, diccionario_estadisticas)
+                break
 
             if procesar:
                 puntos = verificar_ingreso(ingreso,palabras_disponibles,palabras_ingresadas)
