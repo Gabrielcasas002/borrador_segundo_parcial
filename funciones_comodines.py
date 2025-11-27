@@ -1,7 +1,5 @@
 from comodines import *
-from especificas import *
 import os
-
 
 def mostrar_comodines(estado_comodines: list):
     """_summary_
@@ -17,7 +15,33 @@ def mostrar_comodines(estado_comodines: list):
     if estado_comodines[0] == False and estado_comodines[1] == False and estado_comodines[2] == False:
         print("Ingrese [1] para usar Revelar Palabra\n")
         print("Ingrese [2] para usar Ubicar Letras\n")
+<<<<<<< HEAD
         print("Ingrese [3] para usar comodin Ta-Te-Ti\n")
+=======
+
+
+def usar_comodines(estado_comodines: list, ingreso: str):
+    """_summary_
+
+    Marca un comodin como utilizado segun el ingreso del usuario 
+    Controla que el usuario seleccione un comodin valido, y que no pueda usar un comodin que ya fue activado
+    anteriormente
+
+    Args:
+        estado_comodines (list): Lista sacada del diccionario de juego con el estado de los comodines controlada por booleanos
+        ingreso (str): Opcion ingresada por el usuario 
+    """
+
+    if ingreso == "1" and estado_comodines[0] == False:
+        estado_comodines[0] = True
+    elif ingreso == "1" and estado_comodines[0] == False:
+        print("Ese comodín Revelar [1] ya fue usado.")
+
+    elif ingreso == "2" and estado_comodines[1] == False:
+        estado_comodines[1] = True
+    else:
+        print("Ese comodín Ubicar Letra [2] ya fue usado.")
+>>>>>>> 9deaf8ea1830577e3a85bbc56381f4b5a8f223fa
 
 
 def usar_comodin_revelar(estado_comodines: list, lista_palabras: list, palabras_ingresadas: list, lista_revelar: list) -> list:
@@ -77,6 +101,7 @@ def usar_comodin_ubicar(estado_comodines: list, lista_palabras: list, palabras_i
     os.system("cls")
 
     return lista_ubicar
+<<<<<<< HEAD
 
 
 def actualizar_ocultas(lista_palabras: list, palabras_ingresadas: list, lista_ubicar: list, lista_revelar: list, estado_comodines: list) -> list:
@@ -159,3 +184,5 @@ def obtener_ingreso(estado_comodines: list) -> str:
     return ingreso
 
 
+=======
+>>>>>>> 9deaf8ea1830577e3a85bbc56381f4b5a8f223fa
