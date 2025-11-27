@@ -2,6 +2,7 @@ from especificas import *
 from diccionario_juego import *
 from funciones_comodines import *
 from archivos_csv import *
+from ingresos import *
 import os
 
 def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: int, partidas_temporales: list) -> bool:

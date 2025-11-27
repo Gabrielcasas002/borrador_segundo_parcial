@@ -13,7 +13,6 @@ def main():
 
     while bandera:
 
-
         opcion = input("1. Iniciar sesión\n2. Registrarse\n3. Jugar Decifrar Palabra\n4. Ver Estadísticas\n5. Salir del programa\nElija una opción: ")
 
         match opcion:

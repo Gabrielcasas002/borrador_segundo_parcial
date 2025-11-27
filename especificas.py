@@ -1,37 +1,7 @@
-# from guardar_usuarios import *
 from funciones_comodines import *
 from funciones_mostrar import *
 from funciones_ronda import *
 import random
-
-def listar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> list:
-    """_summary_
-
-    Args:
-        palabras_asociadas (list): Lista de palabras recibida por parametro.
-        palabras_descubiertas (list): Lista de palabras descubiertas por el usuario recibida por parametro.
-
-    Returns:
-        list: 
-    """
-
-    palabras_total = []
-
-    for i in range(len(palabras_asociadas)):
-        palabras_total.append(palabras_asociadas[i])
-
-    for i in range(len(palabras_descubiertas)):
-        repetido = False
-
-        for j in range(len(palabras_total)):
-            if palabras_descubiertas[i] == palabras_total[j]:
-                repetido = True
-                break
-
-        if repetido == False:
-            palabras_total.append(palabras_descubiertas[i])
-
-    return palabras_total
 
 
 def limpiar_lista(diccionario_juego: list, nivel: int, lista_letras: list, lista_palabras: list) -> dict:
@@ -61,37 +31,6 @@ def limpiar_lista(diccionario_juego: list, nivel: int, lista_letras: list, lista
         partidas.pop(indice_a_borrar)
 
     return diccionario_juego
-
-
-def ocultar_palabras(palabras_asociadas: list, palabras_descubiertas: list) -> list:
-    """_summary_
-
-    Args:
-        palabras_asociadas (list): Lista de palabras recibida por parametro.
-        palabras_descubiertas (list): Lista de palabras decubiertas por el usuario recibida por parametro.
-
-    Returns:
-        list: La funcion retorna una nueva lista modificada utilizando ambas lista. Modifica cada elemento de las listas para agregar "_" a cada indice de los elementos.
-    """
-
-    palabras_total = listar_palabras(palabras_asociadas, palabras_descubiertas)
-
-    ocultas = []
-
-    for i in range(len(palabras_total)):
-        encontrada = False
-
-        for j in range(len(palabras_descubiertas)):
-            if palabras_total[i] == palabras_descubiertas[j]:
-                encontrada = True
-                break
-
-        if encontrada:
-            ocultas.append(palabras_total[i])
-        else:
-            ocultas.append("_" * len(palabras_total[i]))
-
-    return ocultas
 
 
 def elegir_letras_nivel(nivel: dict) -> list:
@@ -128,7 +67,6 @@ def elegir_nivel(diccionario_niveles: list, numero: int) -> dict:
             return diccionario_niveles[i]
 
 
-# Cambiar el nombre
 def elegir_palabras_nivel(nivel: dict, letras: list) -> list:
     """_summary_
 
@@ -166,4 +104,3 @@ def copiar_lista(lista_original: list) -> list:
         nueva_lista.append(lista_original[i])
 
     return nueva_lista
-
