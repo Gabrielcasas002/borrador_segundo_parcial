@@ -43,7 +43,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
     puntaje_total = 0
 
     tiempo_inicio = time.time()
-    tiempo_limite = 90
+    tiempo_limite = 17
 
     bandera = True
     resultado_partida = False
@@ -54,6 +54,7 @@ def jugar_palabras(diccionario: dict, nivel: int, estadisticas: dict, contador: 
 
         if tiempo_restante <= 0:
             print("\nSe terminó el tiempo !!!")
+            sumar_estadisticas(estadisticas, puntaje_total, incorrectas, tiempo_restante, contador, tiempo_limite)
             bandera = False
         
         else:

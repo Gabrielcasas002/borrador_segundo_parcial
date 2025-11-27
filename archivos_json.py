@@ -140,9 +140,3 @@ def actualizar_usuario_estadisticas(usuario_modificado: dict):
 
     return resultado
 
-
-
-jugador = menu_inicio()
-
-if jugador != None:
-    print("Bienvenido", jugador["Usuario"])
