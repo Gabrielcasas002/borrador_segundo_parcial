@@ -46,7 +46,7 @@ def registrar_usuario():
             existe = True
 
     if existe:
-        print("❌ Ese usuario ya existe. Elija otro.")
+        print("Ese usuario ya existe. Elija otro.")
     else:
         contrasena = input("Ingrese una contraseña: ")
         nuevo_usuario = {
@@ -54,7 +54,6 @@ def registrar_usuario():
             "Contrasena": contrasena,
             "Puntuacion Total" : 0,
             "Ingresos incorrectos" : 0,
-            "Cantidad de rondas jugadas": 0,
             "Tiempo restante total en segundos" : 0,
             "Tiempo entre niveles" : 0,
             "Tiempo promedio entre niveles" : 0
@@ -65,7 +64,7 @@ def registrar_usuario():
         print("✔ Usuario registrado con éxito.")
         resultado = True
 
-    return resultado     # único return
+    return resultado   
 
 
 
@@ -84,10 +83,10 @@ def login():
             encontrado = usuarios[i]
 
     if encontrado != None:
-        print("✔ Inicio de sesión exitoso.")
+        print("Inicio de sesión exitoso.")
         resultado = encontrado
     else:
-        print("❌ Usuario o contraseña incorrectos.")
+        print("Usuario o contraseña incorrectos.")
 
     return resultado  
 
@@ -98,7 +97,7 @@ def menu_inicio():
     usuario_logueado = None
     salir = False
 
-    while not salir:
+    while salir == False:
         print("\n1. Iniciar sesión")
         print("2. Registrarse")
         print("3. Salir")
@@ -123,11 +122,27 @@ def menu_inicio():
 
     return usuario_logueado  
 
+def actualizar_usuario_estadisticas(usuario_modificado: dict):
+    usuarios = leer_json()
+    indice = -1 
+    resultado = None
+
+    for i in range(len(usuarios)):
+        if usuarios[i]["Usuario"] == usuario_modificado["Usuario"]:
+            indice = i
+
+    if indice != -1:
+        usuarios[indice] = usuario_modificado
+        guardar_json(usuarios)
+        resultado = True
+    else:
+        print("No se pudo actualizar el usuario porque no existe.")
+
+    return resultado
+
+
 
 jugador = menu_inicio()
 
 if jugador != None:
-
     print("Bienvenido", jugador["Usuario"])
-
-
